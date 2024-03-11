@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    background: #d5ebf1;
+}
+
+.img-full-height {
+    height: 100vh;
+    object-fit: cover;
+}
+
+.full-height-form {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 992px) { /* Bootstrap breakpoint for large devices */
+    .img-full-height {
+        width: 100%; /* Make the image cover the available width */
+        object-fit: cover;
+    }
+}

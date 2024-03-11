@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autentificare</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/Autentificare/autentificare.css"> <!-- Link your custom CSS here -->
+    <link rel="stylesheet" href="/Autentificare/autentificare.css">
 </head>
 <body>
     <div class="container-fluid h-100">
