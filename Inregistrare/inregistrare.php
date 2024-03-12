@@ -1,5 +1,6 @@
 <?php
 session_start();
+$message = ''; // Mesaj de succes
 $error = ''; // Variabilă pentru a stoca mesajele de eroare
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -30,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hashed_password = password_hash($parola, PASSWORD_DEFAULT);
             $insertSql = "INSERT INTO Utilizatori (Nume, Prenume, NumeUtilizator, Email, Telefon, Parola) VALUES ('$nume', '$prenume', '$username', '$email', '$telefon', '$hashed_password')";
             if ($conn->query($insertSql) === TRUE) {
-                header("Location: /Autentificare/autentificare.php"); // Redirect după înregistrare reușită
-                exit;
+                $message = 'Datele au fost salvate cu succes. Redirecționare...';
+                header("refresh:3;url=/Autentificare/autentificare.php"); // Redirect după 3 secunde
             } else {
                 $error = 'A apărut o eroare la înregistrare.';
             }
@@ -59,6 +60,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-lg-5 col-md-5 col-sm-6 d-flex">
                 <div class="full-height-form w-100">
                     <form method="POST">
+                        <!-- Locul pentru mesaj de succes -->
+                        <?php if (!empty($message)): ?>
+                            <div class="alert alert-success" role="alert">
+                                <?php echo $message; ?>
+                            </div>
+                        <?php endif; ?>
                         <!-- Locul pentru erori -->
                         <?php if (!empty($error)): ?>
                             <div class="alert alert-danger" role="alert">
