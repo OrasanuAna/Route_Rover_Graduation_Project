@@ -1,0 +1,62 @@
+ CREATE TABLE Utilizatori (
+    UtilizatorID INT AUTO_INCREMENT PRIMARY KEY,
+    Nume VARCHAR(50),
+    Prenume VARCHAR(50),
+    NumeUtilizator VARCHAR(50) UNIQUE,
+    Email VARCHAR(100),
+    Telefon VARCHAR(15),
+    Parola VARCHAR(100)
+);
+
+CREATE TABLE Soferi (
+    SoferID INT AUTO_INCREMENT PRIMARY KEY,
+    Nume VARCHAR(50),
+    Prenume VARCHAR(50),
+    DataNasterii DATE,
+    DataAngajarii DATE,
+    DataSalariu DATE,
+    Telefon VARCHAR(15),
+    Email VARCHAR(100),
+    DataEmiterePermis DATE,
+    DataExpirarePermis DATE,
+    DataInceputConcediu DATE,
+    DataSfarsitConcediu DATE
+);
+
+CREATE TABLE Documente (
+    DocumentID INT AUTO_INCREMENT PRIMARY KEY,
+    NumeDocument VARCHAR(100),
+    TipDocument VARCHAR(50),
+    DataIncarcareDocument DATE,
+    CaleFisierDocument VARCHAR(255)
+);
+
+CREATE TABLE Contracte (
+    ContractID INT AUTO_INCREMENT PRIMARY KEY,
+    NumeContract VARCHAR(100),
+    TipContract VARCHAR(50),
+    DataInceputContract DATE,
+    DataSfarsitContract DATE
+);
+
+CREATE TABLE Vehicule (
+    VehiculID INT AUTO_INCREMENT PRIMARY KEY,
+    NumarInmatriculare VARCHAR(20),
+    MarcaModel VARCHAR(50),
+    AnFabricatie YEAR,
+    SoferID INT,
+    Culoare VARCHAR(30),
+    TipCombustibil VARCHAR(30),
+    DataInceputITP DATE,
+    DataSfarsitITP DATE,
+    DataInceputAsigurare DATE,
+    DataSfarsitAsigurare DATE,
+    FOREIGN KEY (SoferID) REFERENCES Soferi(SoferID)
+);
+
+CREATE TABLE Sarcini (
+    SarcinaID INT AUTO_INCREMENT PRIMARY KEY,
+    NumeSarcina VARCHAR(100),
+    DescriereSarcina TEXT,
+    TermenLimitaSarcina DATE
+);

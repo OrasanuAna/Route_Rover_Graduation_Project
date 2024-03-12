@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    background: #d5ebf1;
+}
+
+h1 {
+    font-family: 'Playfair Display', sans-serif;
+    margin-top: 20px;
+}
+
+.navbar {
+    background-color: #ADD8E6;
+    height: 56px; /* Setează o înălțime fixă pentru navbar dacă este necesar */
+    align-items: center; /* Acesta asigură că elementele din navbar sunt centrate vertical */
+}
+
+.navbar-logo {
+    max-height: 50px; /* Sau orice altă înălțime dorești, dar asigură-te că este potrivită pentru navbar */
+    width: auto; /* Aceasta asigură că lățimea se ajustează proporțional */
+    height: auto;
+}
+
+.navbar-nav .nav-link {
+    color: #000000; /* Schimbă culoarea textului în alb sau orice altă culoare dorită */
+}
+
+.navbar-brand {
+    color: #000000; /* Schimbă culoarea textului pentru brand în alb sau orice altă culoare dorită */
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
