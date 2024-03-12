@@ -17,9 +17,14 @@ body {
 
 .full-height-form {
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    max-width: 400px;
+    width: 400px;
+}
+
+.error {
+    max-width: 400px;
+    width: 400px;
+    margin: 0 auto;
 }
 
 @media (min-width: 992px) { /* Bootstrap breakpoint for large devices */
