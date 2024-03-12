@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $result->fetch_assoc();
             if (password_verify($password, $user['Parola'])) {
                 $_SESSION['user_id'] = $user['UtilizatorID'];
-                header("Location: pagina_urmatoare.php"); // Redirect to a different page
+                header("Location: /MeniuPrincipal/meniu_principal.php"); // Redirect to a different page
                 exit;
             } else {
                 $error = 'Nume de utilizator sau parolă incorectă.';

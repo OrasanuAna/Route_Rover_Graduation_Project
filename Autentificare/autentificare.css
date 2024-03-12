@@ -17,8 +17,9 @@ body {
 
 .full-height-form {
     min-height: 100vh;
-    max-width: 400px;
-    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .error {

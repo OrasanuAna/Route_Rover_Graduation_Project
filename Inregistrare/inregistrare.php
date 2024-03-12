@@ -12,10 +12,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, trim($_POST['email']));
     $telefon = mysqli_real_escape_string($conn, trim($_POST['telefon']));
     $parola = mysqli_real_escape_string($conn, trim($_POST['parola']));
+    $confirmare_parola = mysqli_real_escape_string($conn, trim($_POST['confirmare_parola']));
 
     // Verifică dacă toate câmpurile sunt completate
-    if (empty($nume) || empty($prenume) || empty($username) || empty($email) || empty($telefon) || empty($parola)) {
+    if (empty($nume) || empty($prenume) || empty($username) || empty($email) || empty($telefon) || empty($parola) || empty($confirmare_parola)) {
         $error = 'Toate câmpurile sunt obligatorii.';
+    } elseif ($parola != $confirmare_parola) {
+        $error = 'Parolele nu corespund.';
     } else {
         // Verifică dacă numele de utilizator există deja în baza de date
         $sql = "SELECT * FROM Utilizatori WHERE NumeUtilizator = '$username'";
@@ -44,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inregistrare</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/Inregistrare/inregistrare.css">
 </head>
 <body>
@@ -77,12 +81,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="text" class="form-control" name="telefon" placeholder="Nr de telefon">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" name="parola" placeholder="Parola">
+                            <div class="input-group">
+                                <input type="password" class="form-control" name="parola" placeholder="Parola" autocomplete="new-password">
+                                <div class="input-group-append">
+                                    <span class="input-group-text toggle-password"><i class="fa fa-eye-slash" style="cursor: pointer;"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="password" class="form-control" name="confirmare_parola" placeholder="Confirma parola" autocomplete="new-password">
+                                <div class="input-group-append">
+                                    <span class="input-group-text toggle-password"><i class="fa fa-eye-slash" style="cursor: pointer;"></i></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="d-flex flex-column">
                             <button type="submit" class="btn btn-primary mb-3">Înainte</button>
                             <span class="text-center">---SAU---</span>
-                            <a href="/Autentificare/autentificare.php" class="btn btn-primary mt-3">Ai deja un cont? Conecteaza-te</a>
+                            <a href="/Autentificare/autentificare.php" class="btn btn-primary mt-3">Ai deja un cont? Conectează-te</a>
                         </div>
                     </form>
                 </div>
@@ -90,5 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/Inregistrare/inregistrare.js"></script>
 </body>
 </html>
