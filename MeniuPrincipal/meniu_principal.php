@@ -35,7 +35,7 @@ if (isset($_SESSION['username'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto custom-navbar">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/MeniuPrincipal/meniu_principal.php"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li class="nav-item">

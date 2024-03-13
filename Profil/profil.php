@@ -86,7 +86,7 @@ $conn->close(); // Închide conexiunea la baza de date
                 <li class="nav-item">
                     <a class="nav-link" href="/MeniuPrincipal/meniu_principal.php"><i class="fas fa-home"></i> Home</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/Profil/profil.php"><i class="fas fa-user"></i> Profil</a>
                 </li>
                 <li class="nav-item">
