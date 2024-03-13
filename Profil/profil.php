@@ -119,19 +119,20 @@ $conn->close(); // Închide conexiunea la baza de date
 
         <div class="row justify-content-center">
             <div class="col-md-5">
-                <?php if ($error != ''): ?>
-                    <div class="alert alert-danger text-center" role="alert">
-                        <?php echo $error; ?>
-                    </div>
-                <?php endif; ?>
-                <?php if ($success != ''): ?>
-                    <div class="alert alert-success text-center" role="alert">
-                <?php echo $success; ?>
-                    </div>
-                <?php endif; ?>
+                <div class="alert-container">
+                    <?php if ($error != ''): ?>
+                        <div class="alert alert-danger text-center" role="alert">
+                            <?php echo $error; ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($success != ''): ?>
+                        <div class="alert alert-success text-center" role="alert">
+                    <?php echo $success; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
-
 
         <form method="POST">
             <div class="row justify-content-center">

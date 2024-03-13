@@ -97,7 +97,12 @@ body {
 
 h1 {
     font-family: 'Playfair Display', sans-serif;
-    margin-bottom: 75px;
+    margin-bottom: 25px !important;
+}
+
+.alert-container {
+    height: 100px;
+    margin-top: 20px;
 }
 
 .custom-input {

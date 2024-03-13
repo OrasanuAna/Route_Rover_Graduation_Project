@@ -38,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
                     $updateSql = "UPDATE Utilizatori SET Parola = '$newPasswordHash' WHERE UtilizatorID = '$user_id'";
                     if ($conn->query($updateSql) === TRUE) {
-                        $success = 'Parola a fost actualizată cu succes.';
+                        $success = 'Parola a fost actualizată cu succes. Redirecționare...';
+                        header("refresh:2;url=/Profil/profil.php"); // Redirect după 2 secunde
                     } else {
                         $error = 'Eroare la actualizarea parolei: ' . $conn->error;
                     }
@@ -114,16 +115,18 @@ $conn->close();
         <h1 class="text-center">Resetare parolă</h1>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <?php if ($error != ''): ?>
-                    <div class="alert alert-danger text-center" role="alert">
-                        <?php echo $error; ?>
-                    </div>
-                <?php endif; ?>
-                <?php if ($success != ''): ?>
-                    <div class="alert alert-success text-center" role="alert">
-                        <?php echo $success; ?>
-                    </div>
-                <?php endif; ?>
+                <div class="alert-container">
+                    <?php if ($error != ''): ?>
+                        <div class="alert alert-danger text-center" role="alert">
+                            <?php echo $error; ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($success != ''): ?>
+                        <div class="alert alert-success text-center" role="alert">
+                            <?php echo $success; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
                 <form method="POST">
                     <div class="form-group">
                         <label for="oldPassword">Parola actuală:</label>
