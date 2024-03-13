@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $result->fetch_assoc();
             if (password_verify($password, $user['Parola'])) {
                 $_SESSION['user_id'] = $user['UtilizatorID'];
+                $_SESSION['username'] = $user['NumeUtilizator'];
                 header("Location: /MeniuPrincipal/meniu_principal.php"); // Redirect to a different page
                 exit;
             } else {
