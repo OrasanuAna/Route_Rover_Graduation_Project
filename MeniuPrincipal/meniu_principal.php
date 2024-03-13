@@ -59,7 +59,7 @@ if (isset($_SESSION['username'])) {
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a class="nav-link no-hover-effect" href="/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </li>
             </ul>
         </div>
