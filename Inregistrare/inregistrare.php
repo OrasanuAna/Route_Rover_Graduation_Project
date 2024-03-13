@@ -62,13 +62,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <form method="POST">
                         <!-- Locul pentru mesaj de succes -->
                         <?php if (!empty($message)): ?>
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-success text-center" role="alert">
                                 <?php echo $message; ?>
                             </div>
                         <?php endif; ?>
                         <!-- Locul pentru erori -->
                         <?php if (!empty($error)): ?>
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger text-center" role="alert">
                                 <?php echo $error; ?>
                             </div>
                         <?php endif; ?>

@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Locul pentru erori -->
                     <div class="error mb-3">
                             <?php if (!empty($error)): ?>
-                                <div class="alert alert-danger" role="alert">
+                                <div class="alert alert-danger text-center" role="alert">
                                     <?php echo $error; ?>
                                 </div>
                             <?php endif; ?>
