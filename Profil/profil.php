@@ -186,9 +186,9 @@ $conn->close(); // Închide conexiunea la baza de date
                     <!-- Gruparea butoanelor -->
                     <div class="form-group d-flex align-items-end justify-content-end">
                         <!-- Buton pentru resetarea parolei -->
-                        <button type="button" class="btn custom-reset-btn mr-3">
+                        <a href="/Profil/resetare_parola.php" class="btn custom-reset-btn mr-3">
                             <i class="fas fa-key"></i> Resetare parolă
-                        </button>
+                        </a>
                         <!-- Buton pentru trimiterea formularului -->
                         <button type="submit" class="btn btn-outline-primary custom-update-btn">
                             <i class="fas fa-redo"></i> Actualizează informațiile
@@ -200,8 +200,18 @@ $conn->close(); // Închide conexiunea la baza de date
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Script pentru a ascunde alertele după 5 secunde -->
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.alert').fadeOut('slow');
+            }, 3000);
+        });
+    </script>
+
 </body>
 </html>
