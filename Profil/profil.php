@@ -90,7 +90,7 @@ $conn->close(); // Închide conexiunea la baza de date
                     <a class="nav-link" href="/Profil/profil.php"><i class="fas fa-user"></i> Profil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-users"></i> Șoferi</a>
+                    <a class="nav-link" href="/Soferi/soferi.php"><i class="fas fa-users"></i> Șoferi</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-file-alt"></i> Documente</a>
