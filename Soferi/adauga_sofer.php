@@ -2,7 +2,6 @@
 
 session_start();
 
-// Verifică dacă utilizatorul este autentificat
 if (!isset($_SESSION['user_id'])) {
     header('Location: /Autentificare/autentificare.php');
     exit;
@@ -12,10 +11,9 @@ include '../db_connect.php';
 
 $error = '';
 $success = '';
+$userID = $_SESSION['user_id']; // Preia ID-ul utilizatorului conectat
 
-// Verifică dacă formularul a fost trimis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Asigură-te că toate câmpurile necesare sunt completate
     $nume = mysqli_real_escape_string($conn, trim($_POST['nume']));
     $prenume = mysqli_real_escape_string($conn, trim($_POST['prenume']));
     $telefon = mysqli_real_escape_string($conn, trim($_POST['telefon']));
@@ -26,13 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dataEmiterePermis = mysqli_real_escape_string($conn, trim($_POST['dataEmiterePermis']));
     $dataExpirarePermis = mysqli_real_escape_string($conn, trim($_POST['dataExpirarePermis']));
 
-    // Validează datele (exemple de validare, poți adăuga mai multe)
     if (empty($nume) || empty($prenume) || empty($telefon) || empty($email) || empty($dataNasterii) || empty($dataAngajarii) || empty($dataSalariu) || empty($dataEmiterePermis) || empty($dataExpirarePermis)) {
         $error = 'Toate câmpurile sunt obligatorii.';
     } else {
-        // Inserează datele în baza de date
-        $sql = "INSERT INTO Soferi (Nume, Prenume, Telefon, DataNasterii, DataAngajarii, DataSalariu, Email, DataEmiterePermis, DataExpirarePermis)
-                VALUES ('$nume', '$prenume', '$telefon', '$dataNasterii', '$dataAngajarii', '$dataSalariu', '$email', '$dataEmiterePermis', '$dataExpirarePermis')";
+        $sql = "INSERT INTO Soferi (Nume, Prenume, Telefon, DataNasterii, DataAngajarii, DataSalariu, Email, DataEmiterePermis, DataExpirarePermis, UtilizatorID) 
+                VALUES ('$nume', '$prenume', '$telefon', '$dataNasterii', '$dataAngajarii', '$dataSalariu', '$email', '$dataEmiterePermis', '$dataExpirarePermis', '$userID')";
 
         if (mysqli_query($conn, $sql)) {
             $success = 'Șoferul a fost adăugat cu succes.';
@@ -42,9 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-mysqli_close($conn); // Închide conexiunea la baza de date
+mysqli_close($conn);
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

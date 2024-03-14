@@ -20,7 +20,9 @@ CREATE TABLE Soferi (
     DataEmiterePermis DATE,
     DataExpirarePermis DATE,
     DataInceputConcediu DATE,
-    DataSfarsitConcediu DATE
+    DataSfarsitConcediu DATE,
+    UtilizatorID INT,
+    FOREIGN KEY (UtilizatorID) REFERENCES Utilizatori(UtilizatorID)
 );
 
 CREATE TABLE Documente (

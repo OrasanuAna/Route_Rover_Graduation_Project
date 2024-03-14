@@ -12,12 +12,12 @@ include '../db_connect.php';
 $soferInfo = [];
 $error = '';
 $success = '';
+$userID = $_SESSION['user_id'];
 
 if (isset($_GET['id'])) {
     $soferID = mysqli_real_escape_string($conn, $_GET['id']);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Preiau și validez datele trimise prin formular
         $nume = mysqli_real_escape_string($conn, trim($_POST['nume']));
         $prenume = mysqli_real_escape_string($conn, trim($_POST['prenume']));
         $telefon = mysqli_real_escape_string($conn, trim($_POST['telefon']));
@@ -30,45 +30,42 @@ if (isset($_GET['id'])) {
         $dataInceputConcediu = mysqli_real_escape_string($conn, $_POST['dataInceputConcediu']);
         $dataSfarsitConcediu = mysqli_real_escape_string($conn, $_POST['dataSfarsitConcediu']);
 
-        // Verific daca toate campurile au fost completate
         if (empty($nume) || empty($prenume) || empty($telefon) || empty($dataNasterii) || empty($dataAngajarii) || empty($dataSalariu) || empty($email) || empty($dataEmiterePermis) || empty($dataExpirarePermis) || empty($dataInceputConcediu) || empty($dataSfarsitConcediu)) {
             $error = 'Toate câmpurile sunt obligatorii.';
         } else {
-            // Verific dacă au fost făcute modificări
-            $sql = "SELECT * FROM Soferi WHERE SoferID = '$soferID'";
+            $sql = "SELECT * FROM Soferi WHERE SoferID = '$soferID' AND UtilizatorID = '$userID'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $existingInfo = $result->fetch_assoc();
-                if ($nume == $existingInfo['Nume'] && $prenume == $existingInfo['Prenume'] && $telefon == $existingInfo['Telefon'] && $dataNasterii == $existingInfo['DataNasterii'] && $dataAngajarii == $existingInfo['DataAngajarii'] && $dataSalariu == $existingInfo['DataSalariu'] && $email == $existingInfo['Email'] && $dataEmiterePermis == $existingInfo['DataEmiterePermis'] && $dataExpirarePermis == $existingInfo['DataExpirarePermis'] && $dataInceputConcediu == $existingInfo['DataInceputConcediu'] && $dataSfarsitConcediu == $existingInfo['DataSfarsitConcediu']) {
-                    $error = 'Vă rugăm să modificați informațiile înainte de actualizare.';
-                } else {
-                    // Actualizăm datele despre șofer
-                    $updateSql = "UPDATE Soferi SET Nume='$nume', Prenume='$prenume', Telefon='$telefon', DataNasterii='$dataNasterii', DataAngajarii='$dataAngajarii', DataSalariu='$dataSalariu', Email='$email', DataEmiterePermis='$dataEmiterePermis', DataExpirarePermis='$dataExpirarePermis', DataInceputConcediu='$dataInceputConcediu', DataSfarsitConcediu='$dataSfarsitConcediu' WHERE SoferID='$soferID'";
+                if ($nume != $existingInfo['Nume'] || $prenume != $existingInfo['Prenume'] || $telefon != $existingInfo['Telefon'] || $dataNasterii != $existingInfo['DataNasterii'] || $dataAngajarii != $existingInfo['DataAngajarii'] || $dataSalariu != $existingInfo['DataSalariu'] || $email != $existingInfo['Email'] || $dataEmiterePermis != $existingInfo['DataEmiterePermis'] || $dataExpirarePermis != $existingInfo['DataExpirarePermis'] || $dataInceputConcediu != $existingInfo['DataInceputConcediu'] || $dataSfarsitConcediu != $existingInfo['DataSfarsitConcediu']) {
+                    $updateSql = "UPDATE Soferi SET Nume='$nume', Prenume='$prenume', Telefon='$telefon', DataNasterii='$dataNasterii', DataAngajarii='$dataAngajarii', DataSalariu='$dataSalariu', Email='$email', DataEmiterePermis='$dataEmiterePermis', DataExpirarePermis='$dataExpirarePermis', DataInceputConcediu='$dataInceputConcediu', DataSfarsitConcediu='$dataSfarsitConcediu' WHERE SoferID='$soferID' AND UtilizatorID = '$userID'";
                     if ($conn->query($updateSql) === TRUE) {
                         $success = 'Informațiile au fost actualizate cu succes.';
                     } else {
                         $error = 'Eroare la actualizarea datelor: ' . $conn->error;
                     }
+                } else {
+                    $error = 'Vă rugăm să modificați informațiile înainte de actualizare.';
                 }
             } else {
-                $error = 'Șoferul specificat nu există.';
+                $error = 'Șoferul specificat nu există sau nu aveți permisiunea de a edita acest șofer.';
             }
         }
     }
 
-    $sql = "SELECT * FROM Soferi WHERE SoferID = '$soferID'";
+    $sql = "SELECT * FROM Soferi WHERE SoferID = '$soferID' AND UtilizatorID = '$userID'";
     $result = $conn->query($sql);
-
     if ($result->num_rows > 0) {
         $soferInfo = $result->fetch_assoc();
     } else {
-        echo "Nu au fost găsite informații pentru șoferul specificat.";
+        $error = "Nu au fost găsite informații pentru șoferul specificat sau nu aveți permisiunea de a vizualiza aceste informații.";
     }
 }
 
 $conn->close();
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

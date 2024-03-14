@@ -14,8 +14,11 @@ include '../db_connect.php';
 // Inițializează array-ul pentru a stoca informațiile șoferilor
 $soferi = [];
 
-// Pregătește interogarea SQL
-$sql = "SELECT Soferi.SoferID, Soferi.Nume, Soferi.Prenume, Vehicule.MarcaModel, Vehicule.NumarInmatriculare FROM Soferi LEFT JOIN Vehicule ON Soferi.SoferID = Vehicule.SoferID";
+// Obține ID-ul utilizatorului curent din sesiune
+$currentUserId = $_SESSION['user_id'];
+
+// Pregătește interogarea SQL pentru a selecta doar șoferii adăugați de utilizatorul curent
+$sql = "SELECT Soferi.SoferID, Soferi.Nume, Soferi.Prenume, Vehicule.MarcaModel, Vehicule.NumarInmatriculare FROM Soferi LEFT JOIN Vehicule ON Soferi.SoferID = Vehicule.SoferID WHERE Soferi.UtilizatorID = $currentUserId";
 
 // Execută interogarea
 $result = $conn->query($sql);
@@ -26,13 +29,13 @@ if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $soferi[] = $row;
     }
-} else {
-    echo "Nu au fost găsiți șoferi.";
 }
 
 // Închide conexiunea la baza de date
 $conn->close();
+
 ?>
+
 
 
 <!DOCTYPE html>
