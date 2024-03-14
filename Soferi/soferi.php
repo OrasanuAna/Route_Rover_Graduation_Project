@@ -15,7 +15,7 @@ include '../db_connect.php';
 $soferi = [];
 
 // Pregătește interogarea SQL
-$sql = "SELECT Soferi.Nume, Soferi.Prenume, Vehicule.MarcaModel, Vehicule.NumarInmatriculare FROM Soferi LEFT JOIN Vehicule ON Soferi.SoferID = Vehicule.SoferID";
+$sql = "SELECT Soferi.SoferID, Soferi.Nume, Soferi.Prenume, Vehicule.MarcaModel, Vehicule.NumarInmatriculare FROM Soferi LEFT JOIN Vehicule ON Soferi.SoferID = Vehicule.SoferID";
 
 // Execută interogarea
 $result = $conn->query($sql);
@@ -50,6 +50,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="/Soferi/soferi.css" rel="stylesheet">
     <title>Șoferi</title>
 </head>
@@ -74,13 +75,13 @@ $conn->close();
                     <a class="nav-link" href="/Soferi/soferi.php"><i class="fas fa-users"></i> Șoferi</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-truck"></i> Vehicule</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-file-alt"></i> Documente</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-file-contract"></i> Contracte</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-truck"></i> Vehicule</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-tasks"></i> Task nou</a>
@@ -108,6 +109,7 @@ $conn->close();
                         <th scope="col">Prenume</th>
                         <th scope="col">Marca și modelul</th>
                         <th scope="col">Număr de înmatriculare</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,6 +121,10 @@ $conn->close();
                         <td><?php echo htmlspecialchars($sofer['Prenume']); ?></td>
                         <td><?php echo htmlspecialchars($sofer['MarcaModel']); ?></td>
                         <td><?php echo htmlspecialchars($sofer['NumarInmatriculare']); ?></td>
+                        <td>
+                            <a href="informatii_sofer.php?id=<?php echo $sofer['SoferID']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="#" class="delete-icon" data-soferid="<?php echo $sofer['SoferID']; ?>"><i class="fas fa-times"></i></a>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -129,6 +135,30 @@ $conn->close();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        document.querySelectorAll('.delete-icon').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const soferId = this.getAttribute('data-soferid');
+                Swal.fire({
+                    title: 'Sunteți sigur?',
+                    text: "Nu veți putea reveni asupra acestei acțiuni!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Da',
+                    cancelButtonText: 'Anulare',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "sterge_sofer.php?id=" + soferId;
+                    }
+                });
+            });
+        });
+</script>
 
 </body>
 </html>

@@ -95,62 +95,25 @@ body {
     transition: width 0.3s ease, left 0.3s ease;
 }
 
-/* Stiluri pentru link-ul activ */
-.navbar-light .navbar-nav .nav-item.active .nav-link {
-    position: relative; /* Asigură-te că link-ul poate avea conținut absolut poziționat */
-}
-
-.navbar-light .navbar-nav .nav-item.active .nav-link::after {
-    content: "";
-    position: absolute;
-    bottom: -5px; /* Ajustează această valoare la fel ca la hover, dacă este necesar */
-    left: 0;
-    width: 100%; /* Linia va ocupa întreaga lățime */
-    height: 2px; /* Setează înălțimea liniei */
-    background-color: #000; /* Ajustează culoarea liniei, dacă este necesar */
-}
-
 h1 {
     font-family: 'Playfair Display', sans-serif;
     margin-bottom: 25px !important;
-    margin-top: 50px !important;
 }
 
-tbody tr:hover {
-    background-color: #87CEEB; /* Schimbă culoarea de fundal la hover */
+.alert-container {
+    height: 100px;
+    margin-top: 20px;
 }
 
-.table th, .table td {
-    border-bottom: 1px solid black; /* Adaugă linii negre între celule */
-}
-
-edit-icon i {
-    color: #FFD700; /* Galben */
-}
-
-.edit-icon:hover i {
-    color: #FFA500; /* Galben mai intens */
-}
-
-.delete-icon i {
-    color: red; /* Negru */
-    margin-left: 35px; /* Adaugă spațiere între iconițe */
-}
-
-.delete-icon:hover i {
-    color: #8B0000; /* Roșu mai intens */
-}
-
-
-.btn-add {
+.custom-update-btn {
     background-color: #ADD8E6; /* Setează culoarea de fundal */
     color: black; /* Setează culoarea textului */
     border: 1px solid black; /* Setează culoarea border-ului */
-    margin-top: 50px; /* Adaugă spațiere între input și buton */
+    margin-top: 25px; /* Adaugă spațiere între input și buton */
     white-space: nowrap; /* Asigură că textul nu se va întrerupe */
 }
 
-.btn-add:hover {
+.custom-update-btn:hover {
     background-color: #87CEEB; /* Schimbă culoarea de fundal la hover */
     color: black; /* Schimbă culoarea textului la hover */
     border: 1px solid black; /* Schimbă culoarea border-ului la hover */
