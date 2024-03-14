@@ -73,19 +73,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         <?php endif; ?>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="nume" placeholder="Nume">
+                            <input type="text" class="form-control" name="nume" autocomplete="off" placeholder="Nume">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="prenume" placeholder="Prenume">
+                            <input type="text" class="form-control" name="prenume" autocomplete="off" placeholder="Prenume">
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" name="username" autocomplete="off" placeholder="Nume de utilizator">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" name="email" placeholder="Email">
+                            <input type="email" class="form-control" name="email" autocomplete="off" placeholder="Email">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="telefon" placeholder="Nr de telefon">
+                            <input type="text" class="form-control" name="telefon" autocomplete="off" placeholder="Nr de telefon">
                         </div>
                         <div class="form-group">
                             <div class="input-group">

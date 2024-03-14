@@ -116,15 +116,15 @@ mysqli_close($conn);
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="nume">Nume:</label>
-                            <input type="text" class="form-control" id="nume" name="nume">
+                            <input type="text" class="form-control" id="nume" autocomplete="off" name="nume">
                         </div>
                         <div class="form-group">
                             <label for="prenume">Prenume:</label>
-                            <input type="text" class="form-control" id="prenume" name="prenume">
+                            <input type="text" class="form-control" id="prenume" autocomplete="off" name="prenume">
                         </div>
                         <div class="form-group">
                             <label for="telefon">Telefon:</label>
-                            <input type="text" class="form-control" id="telefon" name="telefon">
+                            <input type="text" class="form-control" id="telefon" autocomplete="off" name="telefon">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -144,7 +144,7 @@ mysqli_close($conn);
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input type="email" class="form-control" id="email" autocomplete="off" name="email">
                         </div>
                         <div class="form-group">
                             <label for="dataEmiterePermis">Data emiterii permisului:</label>
