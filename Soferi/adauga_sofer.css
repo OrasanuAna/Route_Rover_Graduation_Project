@@ -95,36 +95,22 @@ body {
     transition: width 0.3s ease, left 0.3s ease;
 }
 
-/* Stiluri pentru link-ul activ */
-.navbar-light .navbar-nav .nav-item.active .nav-link {
-    position: relative; /* Asigură-te că link-ul poate avea conținut absolut poziționat */
-}
-
-.navbar-light .navbar-nav .nav-item.active .nav-link::after {
-    content: "";
-    position: absolute;
-    bottom: -5px; /* Ajustează această valoare la fel ca la hover, dacă este necesar */
-    left: 0;
-    width: 100%; /* Linia va ocupa întreaga lățime */
-    height: 2px; /* Setează înălțimea liniei */
-    background-color: #000; /* Ajustează culoarea liniei, dacă este necesar */
-}
-
 h1 {
     font-family: 'Playfair Display', sans-serif;
     margin-bottom: 25px !important;
     margin-top: 50px !important;
 }
 
-.table th, .table td {
-    border-bottom: 1px solid black; /* Adaugă linii negre între celule */
+.alert-container {
+    min-height: 60px; /* Setează înălțimea minimă a container-ului */
+    margin-bottom: 20px; /* Adaugă spațiere între container și restul conținutului */
 }
 
 .btn-add {
     background-color: #ADD8E6; /* Setează culoarea de fundal */
     color: black; /* Setează culoarea textului */
     border: 1px solid black; /* Setează culoarea border-ului */
-    margin-top: 50px; /* Adaugă spațiere între input și buton */
+    margin-top: 25px; /* Adaugă spațiere între input și buton */
     white-space: nowrap; /* Asigură că textul nu se va întrerupe */
 }
 

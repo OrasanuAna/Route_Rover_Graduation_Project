@@ -103,6 +103,7 @@ $conn->close();
             <table class="table">
                 <thead class="text-black" style="background-color: #ADD8E6;">
                     <tr>
+                        <th scope="col" class="text-center">Nr. crt.</th>
                         <th scope="col">Nume</th>
                         <th scope="col">Prenume</th>
                         <th scope="col">Marca și modelul</th>
@@ -110,8 +111,10 @@ $conn->close();
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $counter = 1; ?>
                     <?php foreach ($soferi as $sofer): ?>
                     <tr>
+                        <td class="text-center"><?php echo $counter++; ?></td>
                         <td><?php echo htmlspecialchars($sofer['Nume']); ?></td>
                         <td><?php echo htmlspecialchars($sofer['Prenume']); ?></td>
                         <td><?php echo htmlspecialchars($sofer['MarcaModel']); ?></td>
