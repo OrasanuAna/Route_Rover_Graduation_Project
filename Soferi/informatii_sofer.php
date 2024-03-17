@@ -48,7 +48,7 @@ if (isset($_GET['id'])) {
                     $error = 'Vă rugăm să modificați informațiile înainte de actualizare.';
                 }
             } else {
-                $error = 'Șoferul specificat nu există sau nu aveți permisiunea de a edita acest șofer.';
+                $error = 'Șoferul specificat nu există sau nu aveți permisiunea de a-l edita.';
             }
         }
     }
@@ -65,7 +65,6 @@ if (isset($_GET['id'])) {
 $conn->close();
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
