@@ -14,42 +14,35 @@ $success = '';
 $userID = $_SESSION['user_id']; // Preia ID-ul utilizatorului conectat
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $numarInmatriculare = mysqli_real_escape_string($conn, trim($_POST['numarInmatriculare']));
-    $marcaModel = mysqli_real_escape_string($conn, trim($_POST['marcaModel']));
-    $anFabricatie = mysqli_real_escape_string($conn, trim($_POST['anFabricatie']));
-    $culoare = mysqli_real_escape_string($conn, trim($_POST['culoare']));
-    $tipCombustibil = mysqli_real_escape_string($conn, trim($_POST['tipCombustibil']));
-    $dataInceputITP = mysqli_real_escape_string($conn, trim($_POST['dataInceputITP']));
-    $dataSfarsitITP = mysqli_real_escape_string($conn, trim($_POST['dataSfarsitITP']));
-    $dataInceputAsigurare = mysqli_real_escape_string($conn, trim($_POST['dataInceputAsigurare']));
-    $dataSfarsitAsigurare = mysqli_real_escape_string($conn, trim($_POST['dataSfarsitAsigurare']));
-    $soferID = mysqli_real_escape_string($conn, trim($_POST['soferID']));
+    $numeDocument = mysqli_real_escape_string($conn, trim($_POST['numeDocument']));
+    $tipDocument = mysqli_real_escape_string($conn, trim($_POST['tipDocument']));
+    $dataIncarcare = mysqli_real_escape_string($conn, trim($_POST['dataIncarcare']));
+    $caleFisier = mysqli_real_escape_string($conn, trim($_FILES['caleFisier']['name'])); // Presupunând că ai un câmp de încărcare a fișierului
 
-    if (empty($numarInmatriculare) || empty($marcaModel) || empty($anFabricatie) || empty($culoare) || empty($tipCombustibil) || empty($dataInceputITP) || empty($dataSfarsitITP) || empty($dataInceputAsigurare) || empty($dataSfarsitAsigurare) || empty($soferID)) {
+    if (empty($numeDocument) || empty($tipDocument) || empty($dataIncarcare) || empty($caleFisier)) {
         $error = 'Toate câmpurile sunt obligatorii.';
     } else {
-        $sql = "INSERT INTO Vehicule (NumarInmatriculare, MarcaModel, AnFabricatie, Culoare, TipCombustibil, DataInceputITP, DataSfarsitITP, DataInceputAsigurare, DataSfarsitAsigurare, SoferID, UtilizatorID)
-                VALUES ('$numarInmatriculare', '$marcaModel', '$anFabricatie', '$culoare', '$tipCombustibil', '$dataInceputITP', '$dataSfarsitITP', '$dataInceputAsigurare', '$dataSfarsitAsigurare', '$soferID', '$userID')";
+        // Aici ar trebui să încarci fișierul într-un director specific și să obții calea finală pentru a o stoca în baza de date
+        // De exemplu, încărcarea fișierului și obținerea căii finale
+        $targetDirectory = "uploads/"; // Schimbă cu directorul tău de încărcare
+        $targetFile = $targetDirectory . basename($_FILES["caleFisier"]["name"]);
+        move_uploaded_file($_FILES["caleFisier"]["tmp_name"], $targetFile);
+
+        $sql = "INSERT INTO Documente (NumeDocument, TipDocument, DataIncarcareDocument, CaleFisierDocument, UtilizatorID)
+                VALUES ('$numeDocument', '$tipDocument', '$dataIncarcare', '$targetFile', '$userID')";
 
         if (mysqli_query($conn, $sql)) {
-            $success = 'Vehiculul a fost adăugat cu succes.';
+            $success = 'Documentul a fost adăugat cu succes.';
         } else {
             $error = 'Eroare: ' . mysqli_error($conn);
         }
     }
 }
 
-$query = "SELECT SoferID, Nume, Prenume FROM Soferi WHERE UtilizatorID = $userID";
-$result = mysqli_query($conn, $query);
-$soferiOptions = '<option value="">Selectează un șofer</option>';
-
-while ($row = mysqli_fetch_assoc($result)) {
-    $soferiOptions .= '<option value="' . $row['SoferID'] . '">' . htmlspecialchars($row['Nume']) . ' ' . htmlspecialchars($row['Prenume']) . '</option>';
-}
-
 mysqli_close($conn);
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +52,7 @@ mysqli_close($conn);
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
         <link href="/Vehicule/adauga_vehicul.css" rel="stylesheet">
-        <title>Adaugă un vehicul</title>
+        <title>Adaugă un document</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -103,11 +96,11 @@ mysqli_close($conn);
         </nav>
 
         <div class="container">
-            <h1 class="text-center my-4 mt-5 mb-5">Adaugă un vehicul</h1>
+            <h1 class="text-center my-4 mt-5 mb-5">Adaugă un document</h1>
 
             <!-- Zona pentru mesajul de eroare sau succes -->
             <div class="row justify-content-center">
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="alert-container">
                         <?php if ($error): ?>
                             <div class="alert alert-danger text-center" role="alert"><?php echo $error; ?></div>
@@ -118,56 +111,34 @@ mysqli_close($conn);
                 </div>
             </div>
 
-            <!-- Formularul de adăugare a unui vehicul -->
+            <!-- Formularul de adăugare a unui document -->
             <form method="POST">
                 <div class="row justify-content-center">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="numarInmatriculare">Număr de înmatriculare:</label>
-                            <input type="text" class="form-control" id="numarInmatriculare" autocomplete="off" name="numarInmatriculare">
+                            <label for="numeDocument">Nume document:</label>
+                            <input type="text" class="form-control" id="numeDocument" name="numeDocument" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <label for="marcaModel">Marca și model:</label>
-                            <input type="text" class="form-control" id="marcaModel" autocomplete="off" name="marcaModel">
-                        </div>
-                        <div class="form-group">
-                            <label for="anFabricatie">Anul fabricației:</label>
-                            <input type="number" class="form-control" id="anFabricatie" min="2000" max="2024" autocomplete="off" name="anFabricatie">
-                        </div>
-                        <div class="form-group">
-                            <label for="culoare">Culoare:</label>
-                            <input type="text" class="form-control" id="culoare" autocomplete="off" name="culoare">
-                        </div>
-                        <div class="form-group">
-                            <label for="tipCombustibil">Tipul de combustibil:</label>
-                            <input type="text" class="form-control" id="tipCombustibil" autocomplete="off" name="tipCombustibil">
+                            <label for="tipDocument">Tip document:</label>
+                            <input type="text" class="form-control" id="tipDocument" name="tipDocument" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="dataInceputITP">Dată emitere ITP:</label>
-                            <input type="date" class="form-control" id="dataInceputITP" name="dataInceputITP">
+                            <label for="dataIncarcare">Data încărcării:</label>
+                            <input type="date" class="form-control" id="dataIncarcare" name="dataIncarcare">
                         </div>
                         <div class="form-group">
-                            <label for="dataSfarsitITP">Dată expirare ITP:</label>
-                            <input type="date" class="form-control" id="dataSfarsitITP" name="dataSfarsitITP">
+                            <label for="caleFisier">Calea fișierului:</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="caleFisier" name="caleFisier">
+                                <label class="custom-file-label" for="caleFisier">Alege calea fișierului...</label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="dataInceputAsigurare">Dată emitere asigurare:</label>
-                            <input type="date" class="form-control" id="dataInceputAsigurare" name="dataInceputAsigurare">
-                        </div>
-                        <div class="form-group">
-                            <label for="dataSfarsitAsigurare">Dată expirare asigurare:</label>
-                            <input type="date" class="form-control" id="dataSfarsitAsigurare" name="dataSfarsitAsigurare">
-                        </div>
-                        <div class="form-group">
-                            <label for="soferID">Șoferul asignat:</label>
-                            <select class="form-control" id="soferID" name="soferID">
-                                <?php echo $soferiOptions; ?>
-                            </select>
-                        </div>
+
                         <div class="float-right">
-                            <button type="submit" class="btn btn-add"><i class="fas fa-plus-circle"></i> Adaugă vehiculul</button>
+                            <button type="submit" class="btn btn-add"><i class="fas fa-plus-circle"></i> Adaugă documentul</button>
                         </div>
                     </div>
                 </div>
@@ -189,4 +160,3 @@ mysqli_close($conn);
 
     </body>
 </html>
-
