@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Aici ar trebui să încarci fișierul într-un director specific și să obții calea finală pentru a o stoca în baza de date
         // De exemplu, încărcarea fișierului și obținerea căii finale
-        $targetDirectory = "uploads/"; // Schimbă cu directorul tău de încărcare
+        $targetDirectory = "documente/"; // Schimbă cu directorul tău de încărcare
         $targetFile = $targetDirectory . basename($_FILES["caleFisier"]["name"]);
         move_uploaded_file($_FILES["caleFisier"]["tmp_name"], $targetFile);
 
@@ -112,7 +112,7 @@ mysqli_close($conn);
             </div>
 
             <!-- Formularul de adăugare a unui document -->
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="row justify-content-center">
                     <div class="col-md-4">
                         <div class="form-group">
