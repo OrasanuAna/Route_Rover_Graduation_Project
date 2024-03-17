@@ -53,7 +53,9 @@ CREATE TABLE Vehicule (
     DataSfarsitITP DATE,
     DataInceputAsigurare DATE,
     DataSfarsitAsigurare DATE,
+    UtilizatorID INT,
     FOREIGN KEY (SoferID) REFERENCES Soferi(SoferID)
+    FOREIGN KEY (UtilizatorID) REFERENCES Utilizatori(UtilizatorID)
 );
 
 CREATE TABLE Sarcini (
