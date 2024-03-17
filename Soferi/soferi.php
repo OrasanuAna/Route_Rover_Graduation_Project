@@ -36,16 +36,6 @@ $conn->close();
 
 ?>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Șoferi</title>
-</head>
-<body>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,7 +71,7 @@ $conn->close();
                     <a class="nav-link" href="/Vehicule/vehicule.php"><i class="fas fa-truck"></i> Vehicule</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-file-alt"></i> Documente</a>
+                    <a class="nav-link" href="/Documente/documente.php"><i class="fas fa-file-alt"></i> Documente</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-file-contract"></i> Contracte</a>

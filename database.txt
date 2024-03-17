@@ -30,7 +30,9 @@ CREATE TABLE Documente (
     NumeDocument VARCHAR(100),
     TipDocument VARCHAR(50),
     DataIncarcareDocument DATE,
-    CaleFisierDocument VARCHAR(255)
+    CaleFisierDocument VARCHAR(255),
+    UtilizatorID INT,
+    FOREIGN KEY (UtilizatorID) REFERENCES Utilizatori(UtilizatorID)
 );
 
 CREATE TABLE Contracte (
@@ -54,7 +56,7 @@ CREATE TABLE Vehicule (
     DataInceputAsigurare DATE,
     DataSfarsitAsigurare DATE,
     UtilizatorID INT,
-    FOREIGN KEY (SoferID) REFERENCES Soferi(SoferID)
+    FOREIGN KEY (SoferID) REFERENCES Soferi(SoferID),
     FOREIGN KEY (UtilizatorID) REFERENCES Utilizatori(UtilizatorID)
 );
 
