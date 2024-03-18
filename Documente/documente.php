@@ -100,26 +100,28 @@ $conn->close();
                 <table class="table">
                     <thead class="text-black" style="background-color: #ADD8E6;">
                         <tr>
-                            <th scope="col" class="text-center">Nr. crt.</th>
-                            <th scope="col">Nume document</th>
-                            <th scope="col">Tip document</th>
-                            <th scope="col">Data încărcării</th>
-                            <th scope="col">Vizualizează documentul</th>
-                            <th scope="col"></th>
+                            <th scope="col" class="text-center align-middle">Nr. crt.</th>
+                            <th scope="col" class="align-middle">Nume document</th>
+                            <th scope="col" class="align-middle">Tip document</th>
+                            <th scope="col" class="align-middle">Data încărcării</th>
+                            <th scope="col" class="align-middle">Vizualizează documentul</th>
+                            <th scope="col" class="align-middle"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $counter = 1; ?>
                         <?php foreach ($documente as $document): ?>
                         <tr>
-                            <td class="text-center"><?php echo $counter++; ?></td>
-                            <td><?php echo htmlspecialchars($document['NumeDocument']); ?></td>
-                            <td><?php echo htmlspecialchars($document['TipDocument']); ?></td>
-                            <td><?php echo date('d-m-Y', strtotime($document['DataIncarcareDocument'])); ?></td>
-                            <td><a href="serve_document.php?id=<?php echo $document['DocumentID']; ?>" target="_blank"><?php echo htmlspecialchars($document['NumeFisier']); ?></a></td>
-                            <td>
-                                <a href="informatii_document.php?id=<?php echo $document['DocumentID']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="#" class="delete-icon" data-documentid="<?php echo $document['DocumentID']; ?>"><i class="fas fa-times"></i></a>
+                            <td class="text-center align-middle"><?php echo $counter++; ?></td>
+                            <td class="align-middle"><?php echo htmlspecialchars($document['NumeDocument']); ?></td>
+                            <td class="align-middle"><?php echo htmlspecialchars($document['TipDocument']); ?></td>
+                            <td class="align-middle"><?php echo date('d-m-Y', strtotime($document['DataIncarcareDocument'])); ?></td>
+                            <td class="align-middle"><a href="serve_document.php?id=<?php echo $document['DocumentID']; ?>" target="_blank"><?php echo htmlspecialchars($document['NumeFisier']); ?></a></td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a href="informatii_document.php?id=<?php echo $document['DocumentID']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="delete-icon mr-4" data-documentid="<?php echo $document['DocumentID']; ?>"><i class="fas fa-times"></i></a>
+                                </div>
                             </td>
                         </tr>
                         <?php endforeach; ?>

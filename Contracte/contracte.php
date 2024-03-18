@@ -100,28 +100,30 @@ $conn->close();
                 <table class="table">
                     <thead class="text-black" style="background-color: #ADD8E6;">
                         <tr>
-                            <th scope="col" class="text-center">Nr. crt.</th>
-                            <th scope="col">Nume contract</th>
-                            <th scope="col">Tip contract</th>
-                            <th scope="col">Dată început contract</th>
-                            <th scope="col">Dată sfârșit contract</th>
-                            <th scope="col">Vizualizează contractul</th>
-                            <th scope="col"></th>
+                            <th scope="col" class="text-center align-middle">Nr. crt.</th>
+                            <th scope="col" class="align-middle">Nume contract</th>
+                            <th scope="col" class="align-middle">Tip contract</th>
+                            <th scope="col" class="align-middle">Dată început contract</th>
+                            <th scope="col" class="align-middle">Dată sfârșit contract</th>
+                            <th scope="col" class="align-middle">Vizualizează contractul</th>
+                            <th scope="col" class="align-middle"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $counter = 1; ?>
                         <?php foreach ($contracte as $contract): ?>
                         <tr>
-                            <td class="text-center"><?php echo $counter++; ?></td>
-                            <td><?php echo htmlspecialchars($contract['NumeContract']); ?></td>
-                            <td><?php echo htmlspecialchars($contract['TipContract']); ?></td>
-                            <td><?php echo date('d-m-Y', strtotime($contract['DataInceputContract'])); ?></td>
-                            <td><?php echo date('d-m-Y', strtotime($contract['DataSfarsitContract'])); ?></td>
-                            <td><a href="serve_contract.php?id=<?php echo $contract['ContractID']; ?>" target="_blank"><?php echo htmlspecialchars($contract['NumeFisier']); ?></a></td>
-                            <td>
-                                <a href="informatii_contract.php?id=<?php echo $contract['ContractID']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="#" class="delete-icon" data-contractid="<?php echo $contract['ContractID']; ?>"><i class="fas fa-times"></i></a>
+                            <td class="text-center align-middle"><?php echo $counter++; ?></td>
+                            <td class="align-middle"><?php echo htmlspecialchars($contract['NumeContract']); ?></td>
+                            <td class="align-middle"><?php echo htmlspecialchars($contract['TipContract']); ?></td>
+                            <td class="align-middle"><?php echo date('d-m-Y', strtotime($contract['DataInceputContract'])); ?></td>
+                            <td class="align-middle"><?php echo date('d-m-Y', strtotime($contract['DataSfarsitContract'])); ?></td>
+                            <td class="align-middle"><a href="serve_contract.php?id=<?php echo $contract['ContractID']; ?>" target="_blank"><?php echo htmlspecialchars($contract['NumeFisier']); ?></a></td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a href="informatii_contract.php?id=<?php echo $contract['ContractID']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
+                                    <a href="#" class="delete-icon mr-4" data-contractid="<?php echo $contract['ContractID']; ?>"><i class="fas fa-times"></i></a>
+                                </div>
                             </td>
                         </tr>
                         <?php endforeach; ?>
