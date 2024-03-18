@@ -189,7 +189,7 @@ $conn->close();
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="caleFisier">Calea fișierului:</label>
+                            <label for="caleFisier">Selectați fișierul:</label>
                             <div class="input-group">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="caleFisier" name="caleFisier">

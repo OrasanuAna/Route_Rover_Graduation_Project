@@ -1,3 +1,44 @@
+<?php
+
+session_start();
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Verifică dacă utilizatorul este autentificat
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /Autentificare/autentificare.php');
+    exit;
+}
+
+// Conectare la baza de date
+include '../db_connect.php';
+
+// Inițializează array-ul pentru a stoca informațiile contractelor
+$contracte = [];
+
+// Obține ID-ul utilizatorului curent din sesiune
+$currentUserId = $_SESSION['user_id'];
+
+// Pregătește interogarea SQL pentru a selecta doar contractele adăugate de utilizatorul curent
+$sql = "SELECT ContractID, NumeContract, TipContract, DataInceputContract, DataSfarsitContract, NumeFisier FROM Contracte WHERE UtilizatorID = $currentUserId";
+
+// Execută interogarea
+$result = $conn->query($sql);
+
+// Verifică dacă interogarea a returnat rezultate
+if ($result && $result->num_rows > 0) {
+    // Parcurge rezultatele și le adaugă în array-ul $contracte
+    while($row = $result->fetch_assoc()) {
+        $contracte[] = $row;
+    }
+}
+
+// Închide conexiunea la baza de date
+$conn->close();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,6 +91,45 @@
             </div>
         </nav>
 
+        <div class="container">
+            <h1 class="text-center my-4 mt-5">Informații despre contracte</h1>
+            <div class="text-center my-4">
+                <a href="/Contracte/adauga_contract.php" class="btn btn-add"><i class="fas fa-plus-circle"></i> Adaugă un contract</a>
+            </div>
+            <div class="table-container">
+                <table class="table">
+                    <thead class="text-black" style="background-color: #ADD8E6;">
+                        <tr>
+                            <th scope="col" class="text-center">Nr. crt.</th>
+                            <th scope="col">Nume contract</th>
+                            <th scope="col">Tip contract</th>
+                            <th scope="col">Dată început contract</th>
+                            <th scope="col">Dată sfârșit contract</th>
+                            <th scope="col">Vizualizează contractul</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $counter = 1; ?>
+                        <?php foreach ($contracte as $contract): ?>
+                        <tr>
+                            <td class="text-center"><?php echo $counter++; ?></td>
+                            <td><?php echo htmlspecialchars($contract['NumeContract']); ?></td>
+                            <td><?php echo htmlspecialchars($contract['TipContract']); ?></td>
+                            <td><?php echo date('d-m-Y', strtotime($contract['DataInceputContract'])); ?></td>
+                            <td><?php echo date('d-m-Y', strtotime($contract['DataSfarsitContract'])); ?></td>
+                            <td><a href="serve_contract.php?id=<?php echo $contract['ContractID']; ?>" target="_blank"><?php echo htmlspecialchars($contract['NumeFisier']); ?></a></td>
+                            <td>
+                                <a href="informatii_contract.php?id=<?php echo $contract['ContractID']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="#" class="delete-icon" data-contractid="<?php echo $contract['ContractID']; ?>"><i class="fas fa-times"></i></a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -58,7 +138,7 @@
             document.querySelectorAll('.delete-icon').forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const documentId = this.getAttribute('data-documentid');
+                    const contractId = this.getAttribute('data-contractid');
                     Swal.fire({
                         title: 'Sunteți sigur?',
                         text: "Nu veți putea reveni asupra acestei acțiuni!",
@@ -71,7 +151,7 @@
                         reverseButtons: true
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "sterge_document.php?id=" + documentId;
+                            window.location.href = "sterge_contract.php?id=" + contractId;
                         }
                     });
                 });

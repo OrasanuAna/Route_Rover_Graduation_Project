@@ -137,7 +137,7 @@ mysqli_close($conn);
                             <input type="date" class="form-control" id="dataIncarcare" name="dataIncarcare">
                         </div>
                         <div class="form-group">
-                            <label for="caleFisier">Calea fișierului:</label>
+                            <label for="caleFisier">Selectați fișierul:</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="caleFisier" name="caleFisier">
                                 <label class="custom-file-label" for="caleFisier">Alege calea fișierului...</label>
