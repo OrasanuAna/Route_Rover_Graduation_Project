@@ -1,44 +1,3 @@
-<?php
-
-session_start();
-
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-// Verifică dacă utilizatorul este autentificat
-if (!isset($_SESSION['user_id'])) {
-    header('Location: /Autentificare/autentificare.php');
-    exit;
-}
-
-// Conectare la baza de date
-include '../db_connect.php';
-
-// Inițializează array-ul pentru a stoca informațiile documentelor
-$documente = [];
-
-// Obține ID-ul utilizatorului curent din sesiune
-$currentUserId = $_SESSION['user_id'];
-
-// Pregătește interogarea SQL pentru a selecta doar documentele adăugate de utilizatorul curent
-$sql = "SELECT DocumentID, NumeDocument, TipDocument, DataIncarcareDocument, NumeFisier FROM Documente WHERE UtilizatorID = $currentUserId";
-
-// Execută interogarea
-$result = $conn->query($sql);
-
-// Verifică dacă interogarea a returnat rezultate
-if ($result && $result->num_rows > 0) {
-    // Parcurge rezultatele și le adaugă în array-ul $documente
-    while($row = $result->fetch_assoc()) {
-        $documente[] = $row;
-    }
-}
-
-// Închide conexiunea la baza de date
-$conn->close();
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -47,8 +6,8 @@ $conn->close();
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link href="/Documente/documente.css" rel="stylesheet">
-        <title>Documente</title>
+        <link href="/Contracte/contracte.css" rel="stylesheet">
+        <title>Contracte</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -73,10 +32,10 @@ $conn->close();
                     <li class="nav-item">
                         <a class="nav-link" href="/Vehicule/vehicule.php"><i class="fas fa-truck"></i> Vehicule</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/Documente/documente.php"><i class="fas fa-file-alt"></i> Documente</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/Contracte/contracte.php"><i class="fas fa-file-contract"></i> Contracte</a>
                     </li>
                     <li class="nav-item">
@@ -90,43 +49,6 @@ $conn->close();
                 </ul>
             </div>
         </nav>
-
-        <div class="container">
-            <h1 class="text-center my-4 mt-5">Informații despre documente</h1>
-            <div class="text-center my-4">
-                <a href="/Documente/adauga_document.php" class="btn btn-add"><i class="fas fa-plus-circle"></i> Adaugă un document</a>
-            </div>
-            <div class="table-container">
-                <table class="table">
-                    <thead class="text-black" style="background-color: #ADD8E6;">
-                        <tr>
-                            <th scope="col" class="text-center">Nr. crt.</th>
-                            <th scope="col">Nume document</th>
-                            <th scope="col">Tip document</th>
-                            <th scope="col">Data încărcării</th>
-                            <th scope="col">Vizualizează documentul</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $counter = 1; ?>
-                        <?php foreach ($documente as $document): ?>
-                        <tr>
-                            <td class="text-center"><?php echo $counter++; ?></td>
-                            <td><?php echo htmlspecialchars($document['NumeDocument']); ?></td>
-                            <td><?php echo htmlspecialchars($document['TipDocument']); ?></td>
-                            <td><?php echo date('d-m-Y', strtotime($document['DataIncarcareDocument'])); ?></td>
-                            <td><a href="serve_document.php?id=<?php echo $document['DocumentID']; ?>" target="_blank"><?php echo htmlspecialchars($document['NumeFisier']); ?></a></td>
-                            <td>
-                                <a href="informatii_document.php?id=<?php echo $document['DocumentID']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="#" class="delete-icon" data-documentid="<?php echo $document['DocumentID']; ?>"><i class="fas fa-times"></i></a>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

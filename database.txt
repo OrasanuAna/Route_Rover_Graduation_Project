@@ -41,7 +41,11 @@ CREATE TABLE Contracte (
     NumeContract VARCHAR(100),
     TipContract VARCHAR(50),
     DataInceputContract DATE,
-    DataSfarsitContract DATE
+    DataSfarsitContract DATE,
+    NumeFisier VARCHAR(255),
+    ContinutContract MEDIUMBLOB,
+    UtilizatorID INT,
+    FOREIGN KEY (UtilizatorID) REFERENCES Utilizatori(UtilizatorID)
 );
 
 CREATE TABLE Vehicule (
