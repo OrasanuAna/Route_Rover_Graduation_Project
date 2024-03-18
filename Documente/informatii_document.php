@@ -24,42 +24,52 @@ if (isset($_GET['id'])) {
         $numeDocument = mysqli_real_escape_string($conn, $_POST['numeDocument'] ?? '');
         $tipDocument = mysqli_real_escape_string($conn, $_POST['tipDocument'] ?? '');
         $dataIncarcare = mysqli_real_escape_string($conn, $_POST['dataIncarcareDocument'] ?? '');
+        $fileChanged = isset($_FILES['caleFisier']) && $_FILES['caleFisier']['error'] == 0;
 
-        // Verifica daca campurile obligatorii au fost completate
-        if (empty($numeDocument) || empty($tipDocument) || empty($dataIncarcare)) {
-            $error = 'Toate câmpurile sunt obligatorii, exceptând încărcarea unui nou fișier.';
-        } else {
-            $sql = "SELECT * FROM Documente WHERE DocumentID = '$documentID' AND UtilizatorID = '$userID'";
-            $result = $conn->query($sql);
+        $sql = "SELECT * FROM Documente WHERE DocumentID = '$documentID' AND UtilizatorID = '$userID'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $existingInfo = $result->fetch_assoc();
 
-            if ($result->num_rows > 0) {
-                $existingInfo = $result->fetch_assoc();
+            // Verifica daca au fost efectuate modificari
+            $changesMade = $numeDocument != $existingInfo['NumeDocument'] || 
+                           $tipDocument != $existingInfo['TipDocument'] || 
+                           $dataIncarcare != $existingInfo['DataIncarcareDocument'] || 
+                           $fileChanged;
 
-                $updateFields = [
-                    "NumeDocument = '$numeDocument'",
-                    "TipDocument = '$tipDocument'",
-                    "DataIncarcareDocument = '$dataIncarcare'"
-                ];
-
-                // Dacă un nou fișier a fost încărcat
-                if (isset($_FILES['caleFisier']) && $_FILES['caleFisier']['error'] == 0) {
+            // Verifica daca campurile obligatorii au fost completate si daca au fost efectuate modificari
+            if (empty($numeDocument) || empty($tipDocument) || empty($dataIncarcare) || !$fileChanged || !$changesMade) {
+                $error = 'Toate câmpurile sunt obligatorii și trebuie să faci o modificare pentru a actualiza.';
+            } else {
+                if ($fileChanged) {
                     $filePath = $_FILES['caleFisier']['tmp_name'];
                     $fileContent = file_get_contents($filePath);
                     $fileName = mysqli_real_escape_string($conn, $_FILES['caleFisier']['name']);
                     $fileContentEscaped = mysqli_real_escape_string($conn, $fileContent);
-                    array_push($updateFields, "ContinutDocument = '$fileContentEscaped'", "NumeFisier = '$fileName'");
+
+                    $updateSql = "UPDATE Documente SET
+                                  NumeDocument = '$numeDocument',
+                                  TipDocument = '$tipDocument',
+                                  DataIncarcareDocument = '$dataIncarcare',
+                                  ContinutDocument = '$fileContentEscaped',
+                                  NumeFisier = '$fileName'
+                                  WHERE DocumentID = '$documentID' AND UtilizatorID = '$userID'";
+                } else {
+                    $updateSql = "UPDATE Documente SET
+                                  NumeDocument = '$numeDocument',
+                                  TipDocument = '$tipDocument',
+                                  DataIncarcareDocument = '$dataIncarcare'
+                                  WHERE DocumentID = '$documentID' AND UtilizatorID = '$userID'";
                 }
 
-                // Construim și executăm interogarea SQL de actualizare
-                $updateSql = "UPDATE Documente SET " . join(', ', $updateFields) . " WHERE DocumentID = '$documentID' AND UtilizatorID = '$userID'";
                 if ($conn->query($updateSql) === TRUE) {
                     $success = 'Informațiile au fost actualizate cu succes.';
                 } else {
                     $error = 'Eroare la actualizarea datelor: ' . $conn->error;
                 }
-            } else {
-                $error = 'Documentul specificat nu există sau nu aveți permisiunea de a-l edita.';
             }
+        } else {
+            $error = 'Documentul specificat nu există sau nu aveți permisiunea de a-l edita.';
         }
     }
 
@@ -77,6 +87,7 @@ if (isset($_GET['id'])) {
 $conn->close();
 
 ?>
+
 
 
 <!DOCTYPE html>
