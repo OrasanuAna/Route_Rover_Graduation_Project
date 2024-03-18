@@ -99,7 +99,7 @@ mysqli_close($conn);
 
             <!-- Zona pentru mesajul de eroare sau succes -->
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-5">
                     <div class="alert-container">
                         <?php if ($error): ?>
                             <div class="alert alert-danger text-center" role="alert"><?php echo $error; ?></div>

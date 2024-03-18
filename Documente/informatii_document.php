@@ -199,7 +199,11 @@ $conn->close();
                                     <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
                                 </div>
                             </div>
-                            <div id="fileNameDisplay" class="mt-2"></div>
+                            <div id="fileNameDisplay" class="mt-2">
+                            <?php if (!empty($documentInfo['NumeFisier'])): ?>
+                                <?php echo htmlspecialchars($documentInfo['NumeFisier']); ?>
+                            <?php endif; ?>
+                            </div>
                         </div>
                             <div class="float-right">
                                 <button type="submit" class="btn custom-update-btn"><i class="fas fa-redo"></i> Actualizează informațiile</button>
