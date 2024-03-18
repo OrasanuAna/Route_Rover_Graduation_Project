@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
 
         // Setează headerele corespunzătoare pentru tipul documentului
         header("Content-Type: " . $row['TipDocument']);
-        header("Content-Disposition: inline; filename=\"" . $row['NumeDocument'] . "\"");
+        header("Content-Disposition: inline; filename=\"" . $row['NumeFisier'] . "\""); // Folosește NumeFisier în loc de NumeDocument
 
         // Trimite conținutul documentului
         echo $row['ContinutDocument'];

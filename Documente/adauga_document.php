@@ -17,12 +17,16 @@ $success = '';
 $userID = $_SESSION['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $numeDocument = mysqli_real_escape_string($conn, $_POST['numeDocument']);
-    $tipDocument = mysqli_real_escape_string($conn, $_POST['tipDocument']);
-    $dataIncarcare = mysqli_real_escape_string($conn, $_POST['dataIncarcare']);
+    // Verificăm dacă toate câmpurile au fost completate
+    if (empty($_POST['numeDocument']) || empty($_POST['tipDocument']) || empty($_POST['dataIncarcare']) ||
+        !isset($_FILES['caleFisier']) || $_FILES['caleFisier']['error'] != 0) {
+        $error = 'Toate câmpurile sunt obligatorii.';
+    } else {
+        // Prelucrăm fișierul doar dacă toate celelalte câmpuri au fost completate
+        $numeDocument = mysqli_real_escape_string($conn, $_POST['numeDocument']);
+        $tipDocument = mysqli_real_escape_string($conn, $_POST['tipDocument']);
+        $dataIncarcare = mysqli_real_escape_string($conn, $_POST['dataIncarcare']);
 
-    // Verificăm dacă un fișier a fost încărcat
-    if (isset($_FILES['caleFisier']) && $_FILES['caleFisier']['error'] == 0) {
         $filePath = $_FILES['caleFisier']['tmp_name']; // Calea temporară a fișierului încărcat
         $fileContent = file_get_contents($filePath);
         $fileName = mysqli_real_escape_string($conn, $_FILES['caleFisier']['name']); // Numele fișierului încărcat
@@ -39,15 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $error = 'Eroare: ' . mysqli_error($conn);
         }
-    } else {
-        $error = 'Eroare la încărcarea fișierului.';
     }
 }
 
 mysqli_close($conn);
 
 ?>
-
 
 
 <!DOCTYPE html>
@@ -57,7 +58,7 @@ mysqli_close($conn);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-        <link href="/Vehicule/adauga_vehicul.css" rel="stylesheet">
+        <link href="/Documente/adauga_document.css" rel="stylesheet">
         <title>Adaugă un document</title>
     </head>
     <body>
@@ -140,6 +141,7 @@ mysqli_close($conn);
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="caleFisier" name="caleFisier">
                                 <label class="custom-file-label" for="caleFisier">Alege calea fișierului...</label>
+                                <div id="fileNameDisplay" class="mt-2"></div>
                             </div>
                         </div>
 
@@ -163,6 +165,20 @@ mysqli_close($conn);
                 }, 3000);
             });
         </script>
+
+        <!-- Script pentru a afișa numele fișierului încărcat -->
+        <script>
+            $(document).ready(function() {
+                $('.custom-file-input').on('change', function() {
+                    // Obțineți numele fișierului din calea fișierului
+                    var fileName = $(this).val().split('\\').pop();
+                    // Actualizați elementul adăugat cu numele fișierului selectat
+                    $('#fileNameDisplay').text(fileName);
+                });
+            });
+        </script>
+
+
 
     </body>
 </html>

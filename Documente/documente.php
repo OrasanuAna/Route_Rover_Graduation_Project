@@ -104,7 +104,7 @@ $conn->close();
                             <th scope="col">Nume document</th>
                             <th scope="col">Tip document</th>
                             <th scope="col">Data încărcării</th>
-                            <th scope="col">Vizualizează fișierul</th>
+                            <th scope="col">Vizualizează documentul</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -115,7 +115,7 @@ $conn->close();
                             <td class="text-center"><?php echo $counter++; ?></td>
                             <td><?php echo htmlspecialchars($document['NumeDocument']); ?></td>
                             <td><?php echo htmlspecialchars($document['TipDocument']); ?></td>
-                            <td><?php echo htmlspecialchars($document['DataIncarcareDocument']); ?></td>
+                            <td><?php echo date('d-m-Y', strtotime($document['DataIncarcareDocument'])); ?></td>
                             <td><a href="serve_document.php?id=<?php echo $document['DocumentID']; ?>" target="_blank"><?php echo htmlspecialchars($document['NumeFisier']); ?></a></td>
                             <td>
                                 <a href="informatii_document.php?id=<?php echo $document['DocumentID']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
