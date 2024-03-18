@@ -2,6 +2,9 @@
 
 session_start();
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 // Verifică dacă utilizatorul este autentificat
 if (!isset($_SESSION['user_id'])) {
     header('Location: /Autentificare/autentificare.php');
@@ -18,7 +21,7 @@ $documente = [];
 $currentUserId = $_SESSION['user_id'];
 
 // Pregătește interogarea SQL pentru a selecta doar documentele adăugate de utilizatorul curent
-$sql = "SELECT DocumentID, NumeDocument, TipDocument, DataIncarcareDocument, CaleFisierDocument FROM Documente WHERE UtilizatorID = $currentUserId";
+$sql = "SELECT DocumentID, NumeDocument, TipDocument, DataIncarcareDocument, NumeFisier FROM Documente WHERE UtilizatorID = $currentUserId";
 
 // Execută interogarea
 $result = $conn->query($sql);
@@ -101,7 +104,7 @@ $conn->close();
                             <th scope="col">Nume document</th>
                             <th scope="col">Tip document</th>
                             <th scope="col">Data încărcării</th>
-                            <th scope="col">Calea fișierului</th>
+                            <th scope="col">Vizualizează fișierul</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -113,7 +116,7 @@ $conn->close();
                             <td><?php echo htmlspecialchars($document['NumeDocument']); ?></td>
                             <td><?php echo htmlspecialchars($document['TipDocument']); ?></td>
                             <td><?php echo htmlspecialchars($document['DataIncarcareDocument']); ?></td>
-                            <td><a href="<?php echo htmlspecialchars($document['CaleFisierDocument']); ?>" target="_blank">Vizualizează</a></td>
+                            <td><a href="serve_document.php?id=<?php echo $document['DocumentID']; ?>" target="_blank"><?php echo htmlspecialchars($document['NumeFisier']); ?></a></td>
                             <td>
                                 <a href="informatii_document.php?id=<?php echo $document['DocumentID']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
                                 <a href="#" class="delete-icon" data-documentid="<?php echo $document['DocumentID']; ?>"><i class="fas fa-times"></i></a>

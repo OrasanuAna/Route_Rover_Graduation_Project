@@ -2,6 +2,9 @@
 
 session_start();
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: /Autentificare/autentificare.php');
     exit;
@@ -11,37 +14,40 @@ include '../db_connect.php';
 
 $error = '';
 $success = '';
-$userID = $_SESSION['user_id']; // Preia ID-ul utilizatorului conectat
+$userID = $_SESSION['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $numeDocument = mysqli_real_escape_string($conn, trim($_POST['numeDocument']));
-    $tipDocument = mysqli_real_escape_string($conn, trim($_POST['tipDocument']));
-    $dataIncarcare = mysqli_real_escape_string($conn, trim($_POST['dataIncarcare']));
-    $caleFisier = mysqli_real_escape_string($conn, trim($_FILES['caleFisier']['name'])); // Presupunând că ai un câmp de încărcare a fișierului
+    $numeDocument = mysqli_real_escape_string($conn, $_POST['numeDocument']);
+    $tipDocument = mysqli_real_escape_string($conn, $_POST['tipDocument']);
+    $dataIncarcare = mysqli_real_escape_string($conn, $_POST['dataIncarcare']);
 
-    if (empty($numeDocument) || empty($tipDocument) || empty($dataIncarcare) || empty($caleFisier)) {
-        $error = 'Toate câmpurile sunt obligatorii.';
-    } else {
-        // Aici ar trebui să încarci fișierul într-un director specific și să obții calea finală pentru a o stoca în baza de date
-        // De exemplu, încărcarea fișierului și obținerea căii finale
-        $targetDirectory = "documente/"; // Schimbă cu directorul tău de încărcare
-        $targetFile = $targetDirectory . basename($_FILES["caleFisier"]["name"]);
-        move_uploaded_file($_FILES["caleFisier"]["tmp_name"], $targetFile);
+    // Verificăm dacă un fișier a fost încărcat
+    if (isset($_FILES['caleFisier']) && $_FILES['caleFisier']['error'] == 0) {
+        $filePath = $_FILES['caleFisier']['tmp_name']; // Calea temporară a fișierului încărcat
+        $fileContent = file_get_contents($filePath);
+        $fileName = mysqli_real_escape_string($conn, $_FILES['caleFisier']['name']); // Numele fișierului încărcat
+        $fileType = mysqli_real_escape_string($conn, $_FILES['caleFisier']['type']); // Tipul fișierului încărcat
 
-        $sql = "INSERT INTO Documente (NumeDocument, TipDocument, DataIncarcareDocument, CaleFisierDocument, UtilizatorID)
-                VALUES ('$numeDocument', '$tipDocument', '$dataIncarcare', '$targetFile', '$userID')";
+        // Escape binary data
+        $fileContentEscaped = mysqli_real_escape_string($conn, $fileContent);
+
+        $sql = "INSERT INTO Documente (NumeDocument, TipDocument, DataIncarcareDocument, ContinutDocument, NumeFisier, UtilizatorID)
+                VALUES ('$numeDocument', '$tipDocument', '$dataIncarcare', '$fileContentEscaped', '$fileName', '$userID')";
 
         if (mysqli_query($conn, $sql)) {
             $success = 'Documentul a fost adăugat cu succes.';
         } else {
             $error = 'Eroare: ' . mysqli_error($conn);
         }
+    } else {
+        $error = 'Eroare la încărcarea fișierului.';
     }
 }
 
 mysqli_close($conn);
 
 ?>
+
 
 
 <!DOCTYPE html>

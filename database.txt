@@ -30,7 +30,8 @@ CREATE TABLE Documente (
     NumeDocument VARCHAR(100),
     TipDocument VARCHAR(50),
     DataIncarcareDocument DATE,
-    CaleFisierDocument VARCHAR(255),
+    NumeFisier VARCHAR(255),
+    ContinutDocument MEDIUMBLOB,
     UtilizatorID INT,
     FOREIGN KEY (UtilizatorID) REFERENCES Utilizatori(UtilizatorID)
 );
