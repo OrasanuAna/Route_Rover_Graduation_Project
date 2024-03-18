@@ -162,7 +162,7 @@ $conn->close();
                         <div class="form-group">
                             <label for="numeDocument">Nume document:</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="numeDocument" name="numeDocument" value="<?php echo htmlspecialchars($documentInfo['NumeDocument']); ?>">
+                                <input type="text" class="form-control" id="numeDocument" name="numeDocument" autocomplete="off" value="<?php echo htmlspecialchars($documentInfo['NumeDocument']); ?>">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
                                 </div>
@@ -171,7 +171,7 @@ $conn->close();
                         <div class="form-group">
                             <label for="tipDocument">Tip document:</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="tipDocument" name="tipDocument" value="<?php echo htmlspecialchars($documentInfo['TipDocument']); ?>">
+                                <input type="text" class="form-control" id="tipDocument" name="tipDocument" autocomplete="off" value="<?php echo htmlspecialchars($documentInfo['TipDocument']); ?>">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
                                 </div>
