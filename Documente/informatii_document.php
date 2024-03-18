@@ -12,41 +12,69 @@ if (!isset($_SESSION['user_id'])) {
 
 include '../db_connect.php';
 
+$documentInfo = [];
 $error = '';
 $success = '';
 $userID = $_SESSION['user_id'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verificăm dacă toate câmpurile au fost completate
-    if (empty($_POST['numeDocument']) || empty($_POST['tipDocument']) || empty($_POST['dataIncarcare']) ||
-        !isset($_FILES['caleFisier']) || $_FILES['caleFisier']['error'] != 0) {
-        $error = 'Toate câmpurile sunt obligatorii.';
-    } else {
-        // Prelucrăm fișierul doar dacă toate celelalte câmpuri au fost completate
-        $numeDocument = mysqli_real_escape_string($conn, $_POST['numeDocument']);
-        $tipDocument = mysqli_real_escape_string($conn, $_POST['tipDocument']);
-        $dataIncarcare = mysqli_real_escape_string($conn, $_POST['dataIncarcare']);
+if (isset($_GET['id'])) {
+    $documentID = mysqli_real_escape_string($conn, $_GET['id']);
 
-        $filePath = $_FILES['caleFisier']['tmp_name']; // Calea temporară a fișierului încărcat
-        $fileContent = file_get_contents($filePath);
-        $fileName = mysqli_real_escape_string($conn, $_FILES['caleFisier']['name']); // Numele fișierului încărcat
-        $fileType = mysqli_real_escape_string($conn, $_FILES['caleFisier']['type']); // Tipul fișierului încărcat
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $numeDocument = mysqli_real_escape_string($conn, $_POST['numeDocument'] ?? '');
+        $tipDocument = mysqli_real_escape_string($conn, $_POST['tipDocument'] ?? '');
+        $dataIncarcare = mysqli_real_escape_string($conn, $_POST['dataIncarcareDocument'] ?? '');
 
-        // Escape binary data
-        $fileContentEscaped = mysqli_real_escape_string($conn, $fileContent);
-
-        $sql = "INSERT INTO Documente (NumeDocument, TipDocument, DataIncarcareDocument, ContinutDocument, NumeFisier, UtilizatorID)
-                VALUES ('$numeDocument', '$tipDocument', '$dataIncarcare', '$fileContentEscaped', '$fileName', '$userID')";
-
-        if (mysqli_query($conn, $sql)) {
-            $success = 'Documentul a fost adăugat cu succes.';
+        // Verifica daca campurile obligatorii au fost completate
+        if (empty($numeDocument) || empty($tipDocument) || empty($dataIncarcare)) {
+            $error = 'Toate câmpurile sunt obligatorii, exceptând încărcarea unui nou fișier.';
         } else {
-            $error = 'Eroare: ' . mysqli_error($conn);
+            $sql = "SELECT * FROM Documente WHERE DocumentID = '$documentID' AND UtilizatorID = '$userID'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                $existingInfo = $result->fetch_assoc();
+
+                $updateFields = [
+                    "NumeDocument = '$numeDocument'",
+                    "TipDocument = '$tipDocument'",
+                    "DataIncarcareDocument = '$dataIncarcare'"
+                ];
+
+                // Dacă un nou fișier a fost încărcat
+                if (isset($_FILES['caleFisier']) && $_FILES['caleFisier']['error'] == 0) {
+                    $filePath = $_FILES['caleFisier']['tmp_name'];
+                    $fileContent = file_get_contents($filePath);
+                    $fileName = mysqli_real_escape_string($conn, $_FILES['caleFisier']['name']);
+                    $fileContentEscaped = mysqli_real_escape_string($conn, $fileContent);
+                    array_push($updateFields, "ContinutDocument = '$fileContentEscaped'", "NumeFisier = '$fileName'");
+                }
+
+                // Construim și executăm interogarea SQL de actualizare
+                $updateSql = "UPDATE Documente SET " . join(', ', $updateFields) . " WHERE DocumentID = '$documentID' AND UtilizatorID = '$userID'";
+                if ($conn->query($updateSql) === TRUE) {
+                    $success = 'Informațiile au fost actualizate cu succes.';
+                } else {
+                    $error = 'Eroare la actualizarea datelor: ' . $conn->error;
+                }
+            } else {
+                $error = 'Documentul specificat nu există sau nu aveți permisiunea de a-l edita.';
+            }
         }
+    }
+
+    // Re-fetch the updated info
+    $sql = "SELECT * FROM Documente WHERE DocumentID = '$documentID' AND UtilizatorID='$userID'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $documentInfo = $result->fetch_assoc();
+        $documentInfo['DataIncarcare'] = !empty($documentInfo['DataIncarcareDocument']) ? date('Y-m-d', strtotime($documentInfo['DataIncarcareDocument'])) : '';
+    } else {
+        $error = "Nu au fost găsite informații pentru documentul specificat sau nu aveți permisiunea de a vizualiza aceste informații.";
     }
 }
 
-mysqli_close($conn);
+$conn->close();
 
 ?>
 
@@ -58,8 +86,8 @@ mysqli_close($conn);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-        <link href="/Documente/adauga_document.css" rel="stylesheet">
-        <title>Adaugă un document</title>
+        <link href="/Documente/informatii_document.css" rel="stylesheet">
+        <title>Informații despre document</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -103,8 +131,7 @@ mysqli_close($conn);
         </nav>
 
         <div class="container">
-            <h1 class="text-center my-4 mt-5 mb-5">Adaugă un document</h1>
-
+            <h1 class="text-center my-4 mt-5">Informații despre documentul <u><?php echo htmlspecialchars($documentInfo['NumeDocument']); ?></u></h1>
             <!-- Zona pentru mesajul de eroare sau succes -->
             <div class="row justify-content-center">
                 <div class="col-md-6">
@@ -118,36 +145,54 @@ mysqli_close($conn);
                 </div>
             </div>
 
-            <!-- Formularul de adăugare a unui document -->
             <form method="POST" enctype="multipart/form-data">
                 <div class="row justify-content-center">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="numeDocument">Nume document:</label>
-                            <input type="text" class="form-control" id="numeDocument" name="numeDocument" autocomplete="off">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="numeDocument" name="numeDocument" value="<?php echo htmlspecialchars($documentInfo['NumeDocument']); ?>">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="tipDocument">Tip document:</label>
-                            <input type="text" class="form-control" id="tipDocument" name="tipDocument" autocomplete="off">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="tipDocument" name="tipDocument" value="<?php echo htmlspecialchars($documentInfo['TipDocument']); ?>">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="dataIncarcare">Data încărcării:</label>
-                            <input type="date" class="form-control" id="dataIncarcare" name="dataIncarcare">
+                            <div class="input-group">
+                                <input type="date" class="form-control" id="dataIncarcare" name="dataIncarcareDocument" value="<?php echo htmlspecialchars($documentInfo['DataIncarcare']); ?>">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="caleFisier">Calea fișierului:</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="caleFisier" name="caleFisier">
-                                <label class="custom-file-label" for="caleFisier">Alege calea fișierului...</label>
-                                <div id="fileNameDisplay" class="mt-2"></div>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="caleFisier" name="caleFisier">
+                                    <label class="custom-file-label" for="caleFisier">Alege calea fișierului...</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                                </div>
                             </div>
+                            <div id="fileNameDisplay" class="mt-2"></div>
                         </div>
-
-                        <div class="float-right">
-                            <button type="submit" class="btn btn-add"><i class="fas fa-plus-circle"></i> Adaugă documentul</button>
-                        </div>
+                            <div class="float-right">
+                                <button type="submit" class="btn custom-update-btn"><i class="fas fa-redo"></i> Actualizează informațiile</button>
+                            </div>
                     </div>
                 </div>
             </form>
