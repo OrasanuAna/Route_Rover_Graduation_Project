@@ -69,5 +69,7 @@ CREATE TABLE Sarcini (
     SarcinaID INT AUTO_INCREMENT PRIMARY KEY,
     NumeSarcina VARCHAR(100),
     DescriereSarcina TEXT,
-    TermenLimitaSarcina DATE
+    TermenLimitaSarcina DATE,
+    UtilizatorID INT,
+    FOREIGN KEY (UtilizatorID) REFERENCES Utilizatori(UtilizatorID)
 );

@@ -1,3 +1,41 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /Autentificare/autentificare.php');
+    exit;
+}
+
+include '../db_connect.php';
+
+$error = '';
+$success = '';
+$userID = $_SESSION['user_id']; // Preia ID-ul utilizatorului conectat
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $numeTask = mysqli_real_escape_string($conn, trim($_POST['numeTask']));
+    $descriereTask = mysqli_real_escape_string($conn, trim($_POST['descriereTask']));
+    $deadlineTask = mysqli_real_escape_string($conn, trim($_POST['deadlineTask']));
+
+    if (empty($numeTask) || empty($descriereTask) || empty($deadlineTask)) {
+        $error = 'Toate câmpurile sunt obligatorii.';
+    } else {
+        $sql = "INSERT INTO Sarcini (NumeSarcina, DescriereSarcina, TermenLimitaSarcina, UtilizatorID) 
+                VALUES ('$numeTask', '$descriereTask', '$deadlineTask', '$userID')";
+
+        if (mysqli_query($conn, $sql)) {
+            $success = 'Task-ul a fost adăugat cu succes.';
+        } else {
+            $error = 'Eroare: ' . mysqli_error($conn);
+        }
+    }
+}
+
+mysqli_close($conn);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -48,3 +86,61 @@
                 </ul>
             </div>
         </nav>
+
+
+        <div class="container">
+            <h1 class="text-center my-4 mt-5 mb-5">Adaugă un task</h1>
+
+            <!-- Zona pentru mesajul de eroare sau succes -->
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="alert-container">
+                        <?php if ($error): ?>
+                            <div class="alert alert-danger text-center" role="alert"><?php echo $error; ?></div>
+                        <?php elseif ($success): ?>
+                            <div class="alert alert-success text-center" role="alert"><?php echo $success; ?></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formularul de adăugare a unui task -->
+            <form method="POST">
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="numeTask">Nume task:</label>
+                            <input type="text" class="form-control" id="numeTask" name="numeTask" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="descriereTask">Descriere task:</label>
+                            <textarea class="form-control" id="descriereTask" name="descriereTask" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="deadlineTask">Deadline task:</label>
+                            <input type="date" class="form-control" id="deadlineTask" name="deadlineTask">
+                        </div>
+
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-add"><i class="fas fa-plus-circle"></i> Adaugă task-ul</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <!-- Script pentru a ascunde alertele după 3 secunde -->
+        <script>
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('.alert').fadeOut('slow');
+                }, 3000);
+            });
+        </script>
+
+    </body>
+</html>
