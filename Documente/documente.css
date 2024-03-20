@@ -124,14 +124,6 @@ tbody tr:hover {
     border-bottom: 1px solid black; /* Adaugă linii negre între celule */
 }
 
-edit-icon i {
-    color: #FFD700; /* Galben */
-}
-
-.edit-icon:hover i {
-    color: #FFA500; /* Galben mai intens */
-}
-
 .delete-icon i {
     color: red; /* Negru */
     margin-left: 35px; /* Adaugă spațiere între iconițe */

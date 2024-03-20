@@ -120,10 +120,23 @@ h1 {
     margin-top: 75px;
 }
 
+tbody tr:hover {
+    background-color: #87CEEB; /* Schimbă culoarea de fundal la hover */
+}
+
 .table th, .table td {
     border-bottom: 1px solid black; /* Adaugă linii negre între celule */
 }
 
+.edit-icon {
+    margin-left: 20px; /* Adaugă spațiere între iconiță și text */
+}
 
+.confirm-icon {
+    color: green; /* Schimbă culoarea iconiței de confirmare */
+    margin-left: 15px; /* Adaugă spațiere între iconițe */
+}
 
-
+.confirm-icon:hover {
+    color: #006400; /* Verde mai intens */
+}
