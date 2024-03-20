@@ -102,7 +102,7 @@ $conn->close(); // Închide conexiunea la baza de date
                     <a class="nav-link" href="/Contracte/contracte.php"><i class="fas fa-file-contract"></i> Contracte</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-tasks"></i> Task nou</a>
+                    <a class="nav-link" href="/Sarcini/adauga_task.php"><i class="fas fa-tasks"></i> Task nou</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
