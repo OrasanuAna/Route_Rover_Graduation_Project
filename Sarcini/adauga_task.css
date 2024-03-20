@@ -112,18 +112,25 @@ body {
 
 h1 {
     font-family: 'Playfair Display', sans-serif;
-    margin-top: 60px;
-    margin-bottom: 50px;
+    margin-bottom: 25px !important;
+    margin-top: 50px !important;
 }
 
-.col-md-12 {
-    margin-top: 75px;
+.alert-container {
+    min-height: 60px; /* Setează înălțimea minimă a container-ului */
+    margin-bottom: 20px; /* Adaugă spațiere între container și restul conținutului */
 }
 
-.table th, .table td {
-    border-bottom: 1px solid black; /* Adaugă linii negre între celule */
+.btn-add {
+    background-color: #ADD8E6; /* Setează culoarea de fundal */
+    color: black; /* Setează culoarea textului */
+    border: 1px solid black; /* Setează culoarea border-ului */
+    margin-top: 25px; /* Adaugă spațiere între input și buton */
+    white-space: nowrap; /* Asigură că textul nu se va întrerupe */
 }
 
-
-
-
+.btn-add:hover {
+    background-color: #87CEEB; /* Schimbă culoarea de fundal la hover */
+    color: black; /* Schimbă culoarea textului la hover */
+    border: 1px solid black; /* Schimbă culoarea border-ului la hover */
+}
