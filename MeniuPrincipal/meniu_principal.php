@@ -175,7 +175,7 @@ $conn->close();
                         reverseButtons: true
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "sterge_task.php?id=" + taskId;
+                            window.location.href = "/Sarcini/sterge_task.php?id=" + taskId;
                         }
                     });
                 });
