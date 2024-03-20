@@ -28,13 +28,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($numarInmatriculare) || empty($marcaModel) || empty($anFabricatie) || empty($culoare) || empty($tipCombustibil) || empty($dataInceputITP) || empty($dataSfarsitITP) || empty($dataInceputAsigurare) || empty($dataSfarsitAsigurare) || empty($soferID)) {
         $error = 'Toate câmpurile sunt obligatorii.';
     } else {
-        $sql = "INSERT INTO Vehicule (NumarInmatriculare, MarcaModel, AnFabricatie, Culoare, TipCombustibil, DataInceputITP, DataSfarsitITP, DataInceputAsigurare, DataSfarsitAsigurare, SoferID, UtilizatorID)
-                VALUES ('$numarInmatriculare', '$marcaModel', '$anFabricatie', '$culoare', '$tipCombustibil', '$dataInceputITP', '$dataSfarsitITP', '$dataInceputAsigurare', '$dataSfarsitAsigurare', '$soferID', '$userID')";
-
-        if (mysqli_query($conn, $sql)) {
-            $success = 'Vehiculul a fost adăugat cu succes.';
+        // Verifică dacă numărul de înmatriculare există deja
+        $checkSql = "SELECT * FROM Vehicule WHERE NumarInmatriculare = '$numarInmatriculare' AND UtilizatorID = '$userID'";
+        $checkResult = $conn->query($checkSql);
+        
+        if ($checkResult->num_rows > 0) {
+            $error = 'Numărul de înmatriculare există deja. Introduceți un alt număr.';
         } else {
-            $error = 'Eroare: ' . mysqli_error($conn);
+            $sql = "INSERT INTO Vehicule (NumarInmatriculare, MarcaModel, AnFabricatie, Culoare, TipCombustibil, DataInceputITP, DataSfarsitITP, DataInceputAsigurare, DataSfarsitAsigurare, SoferID, UtilizatorID)
+                    VALUES ('$numarInmatriculare', '$marcaModel', '$anFabricatie', '$culoare', '$tipCombustibil', '$dataInceputITP', '$dataSfarsitITP', '$dataInceputAsigurare', '$dataSfarsitAsigurare', '$soferID', '$userID')";
+
+            if (mysqli_query($conn, $sql)) {
+                $success = 'Vehiculul a fost adăugat cu succes.';
+            } else {
+                $error = 'Eroare: ' . mysqli_error($conn);
+            }
         }
     }
 }

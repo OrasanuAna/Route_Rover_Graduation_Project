@@ -17,31 +17,34 @@ $success = '';
 $userID = $_SESSION['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verificăm dacă toate câmpurile au fost completate
     if (empty($_POST['numeDocument']) || empty($_POST['tipDocument']) || empty($_POST['dataIncarcare']) ||
         !isset($_FILES['caleFisier']) || $_FILES['caleFisier']['error'] != 0) {
         $error = 'Toate câmpurile sunt obligatorii.';
     } else {
-        // Prelucrăm fișierul doar dacă toate celelalte câmpuri au fost completate
         $numeDocument = mysqli_real_escape_string($conn, $_POST['numeDocument']);
-        $tipDocument = mysqli_real_escape_string($conn, $_POST['tipDocument']);
-        $dataIncarcare = mysqli_real_escape_string($conn, $_POST['dataIncarcare']);
 
-        $filePath = $_FILES['caleFisier']['tmp_name']; // Calea temporară a fișierului încărcat
-        $fileContent = file_get_contents($filePath);
-        $fileName = mysqli_real_escape_string($conn, $_FILES['caleFisier']['name']); // Numele fișierului încărcat
-        $fileType = mysqli_real_escape_string($conn, $_FILES['caleFisier']['type']); // Tipul fișierului încărcat
-
-        // Escape binary data
-        $fileContentEscaped = mysqli_real_escape_string($conn, $fileContent);
-
-        $sql = "INSERT INTO Documente (NumeDocument, TipDocument, DataIncarcareDocument, ContinutDocument, NumeFisier, UtilizatorID)
-                VALUES ('$numeDocument', '$tipDocument', '$dataIncarcare', '$fileContentEscaped', '$fileName', '$userID')";
-
-        if (mysqli_query($conn, $sql)) {
-            $success = 'Documentul a fost adăugat cu succes.';
+        // Verifică dacă există deja un document cu același nume pentru utilizatorul curent
+        $checkSql = "SELECT * FROM Documente WHERE NumeDocument = '$numeDocument' AND UtilizatorID = '$userID'";
+        $checkResult = $conn->query($checkSql);
+        if ($checkResult->num_rows > 0) {
+            // Documentul există deja
+            $error = 'Numele documentului există deja. Alegeți un alt nume.';
         } else {
-            $error = 'Eroare: ' . mysqli_error($conn);
+            $tipDocument = mysqli_real_escape_string($conn, $_POST['tipDocument']);
+            $dataIncarcare = mysqli_real_escape_string($conn, $_POST['dataIncarcare']);
+            $filePath = $_FILES['caleFisier']['tmp_name']; // Calea temporară a fișierului încărcat
+            $fileContent = file_get_contents($filePath);
+            $fileName = mysqli_real_escape_string($conn, $_FILES['caleFisier']['name']);
+            $fileContentEscaped = mysqli_real_escape_string($conn, $fileContent);
+
+            $sql = "INSERT INTO Documente (NumeDocument, TipDocument, DataIncarcareDocument, ContinutDocument, NumeFisier, UtilizatorID)
+                    VALUES ('$numeDocument', '$tipDocument', '$dataIncarcare', '$fileContentEscaped', '$fileName', '$userID')";
+
+            if (mysqli_query($conn, $sql)) {
+                $success = 'Documentul a fost adăugat cu succes.';
+            } else {
+                $error = 'Eroare: ' . mysqli_error($conn);
+            }
         }
     }
 }
@@ -49,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 mysqli_close($conn);
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

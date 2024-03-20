@@ -18,19 +18,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $descriereTask = mysqli_real_escape_string($conn, trim($_POST['descriereTask']));
     $deadlineTask = mysqli_real_escape_string($conn, trim($_POST['deadlineTask']));
 
+    // Verifică dacă numele task-ului există deja
+    $checkSql = "SELECT * FROM Sarcini WHERE NumeSarcina = '$numeTask' AND UtilizatorID = '$userID'";
+    $checkResult = $conn->query($checkSql);
+    
     if (empty($numeTask) || empty($descriereTask) || empty($deadlineTask)) {
         $error = 'Toate câmpurile sunt obligatorii.';
     } else {
-        $sql = "INSERT INTO Sarcini (NumeSarcina, DescriereSarcina, TermenLimitaSarcina, UtilizatorID) 
-                VALUES ('$numeTask', '$descriereTask', '$deadlineTask', '$userID')";
-
-        if (mysqli_query($conn, $sql)) {
-            $success = 'Task-ul a fost adăugat cu succes.';
+        if ($checkResult->num_rows > 0) {
+            // Task-ul există deja
+            $error = 'Numele task-ului există deja. Alegeți un alt nume.';
         } else {
-            $error = 'Eroare: ' . mysqli_error($conn);
+                $sql = "INSERT INTO Sarcini (NumeSarcina, DescriereSarcina, TermenLimitaSarcina, UtilizatorID) 
+                        VALUES ('$numeTask', '$descriereTask', '$deadlineTask', '$userID')";
+
+                if (mysqli_query($conn, $sql)) {
+                    $success = 'Task-ul a fost adăugat cu succes.';
+                } else {
+                    $error = 'Eroare: ' . mysqli_error($conn);
+                }
+            }
         }
     }
-}
 
 mysqli_close($conn);
 

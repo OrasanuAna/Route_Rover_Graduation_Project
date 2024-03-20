@@ -17,31 +17,36 @@ $success = '';
 $userID = $_SESSION['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verificăm dacă toate câmpurile au fost completate
     if (empty($_POST['numeContract']) || empty($_POST['tipContract']) ||
         empty($_POST['dataInceputContract']) || empty($_POST['dataSfarsitContract']) ||
         !isset($_FILES['caleFisier']) || $_FILES['caleFisier']['error'] != 0) {
         $error = 'Toate câmpurile sunt obligatorii.';
     } else {
         $numeContract = mysqli_real_escape_string($conn, $_POST['numeContract']);
-        $tipContract = mysqli_real_escape_string($conn, $_POST['tipContract']);
-        $dataInceputContract = mysqli_real_escape_string($conn, $_POST['dataInceputContract']);
-        $dataSfarsitContract = mysqli_real_escape_string($conn, $_POST['dataSfarsitContract']);
 
-        $filePath = $_FILES['caleFisier']['tmp_name'];
-        $fileContent = file_get_contents($filePath);
-        $fileName = mysqli_real_escape_string($conn, $_FILES['caleFisier']['name']);
-        $fileType = mysqli_real_escape_string($conn, $_FILES['caleFisier']['type']); // Tipul fișierului încărcat
-
-        $fileContentEscaped = mysqli_real_escape_string($conn, $fileContent);
-
-        $sql = "INSERT INTO Contracte (NumeContract, TipContract, DataInceputContract, DataSfarsitContract, NumeFisier, ContinutContract, UtilizatorID)
-                VALUES ('$numeContract', '$tipContract', '$dataInceputContract', '$dataSfarsitContract', '$fileName', '$fileContentEscaped', '$userID')";
-
-        if (mysqli_query($conn, $sql)) {
-            $success = 'Contractul a fost adăugat cu succes.';
+        // Verifică dacă există deja un contract cu același nume
+        $checkSql = "SELECT * FROM Contracte WHERE NumeContract = '$numeContract' AND UtilizatorID = '$userID'";
+        $checkResult = $conn->query($checkSql);
+        if ($checkResult->num_rows > 0) {
+            // Contractul există deja
+            $error = 'Numele contractului există deja. Alegeți un alt nume.';
         } else {
-            $error = 'Eroare: ' . mysqli_error($conn);
+            $tipContract = mysqli_real_escape_string($conn, $_POST['tipContract']);
+            $dataInceputContract = mysqli_real_escape_string($conn, $_POST['dataInceputContract']);
+            $dataSfarsitContract = mysqli_real_escape_string($conn, $_POST['dataSfarsitContract']);
+            $filePath = $_FILES['caleFisier']['tmp_name'];
+            $fileContent = file_get_contents($filePath);
+            $fileName = mysqli_real_escape_string($conn, $_FILES['caleFisier']['name']);
+            $fileContentEscaped = mysqli_real_escape_string($conn, $fileContent);
+
+            $sql = "INSERT INTO Contracte (NumeContract, TipContract, DataInceputContract, DataSfarsitContract, NumeFisier, ContinutContract, UtilizatorID)
+                    VALUES ('$numeContract', '$tipContract', '$dataInceputContract', '$dataSfarsitContract', '$fileName', '$fileContentEscaped', '$userID')";
+
+            if (mysqli_query($conn, $sql)) {
+                $success = 'Contractul a fost adăugat cu succes.';
+            } else {
+                $error = 'Eroare: ' . mysqli_error($conn);
+            }
         }
     }
 }
