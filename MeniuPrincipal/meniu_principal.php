@@ -56,6 +56,7 @@ $conn->close();
         <title>Meniu Principal</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link href="/MeniuPrincipal/meniu_principal.css" rel="stylesheet">
     </head>
     <body>
@@ -119,27 +120,27 @@ $conn->close();
                                 <tr>
                                     <td>
                                         <?php foreach ($taskuriRestante as $task): ?>
-                                            <div>
+                                            <div class="mb-3">
                                                 <?php echo htmlspecialchars($task['nume']); ?>
-                                                <a href="informatii_task.php?id=<?php echo $task['id']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
+                                                <a href="/Sarcini/informatii_task.php?id=<?php echo $task['id']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
                                                 <a href="#" class="confirm-icon" data-taskid="<?php echo $task['id']; ?>"><i class="fas fa-check"></i></a>
                                             </div>
                                         <?php endforeach; ?>
                                     </td>
                                     <td>
                                         <?php foreach ($taskurileZilei as $task): ?>
-                                            <div>
+                                            <div class="mb-3">
                                                 <?php echo htmlspecialchars($task['nume']); ?>
-                                                <a href="informatii_task.php?id=<?php echo $task['id']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
+                                                <a href="/Sarcini/informatii_task.php?id=<?php echo $task['id']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
                                                 <a href="#" class="confirm-icon" data-taskid="<?php echo $task['id']; ?>"><i class="fas fa-check"></i></a>
                                             </div>
                                         <?php endforeach; ?>
                                     </td>
                                     <td>
                                         <?php foreach ($taskuriViitoare as $task): ?>
-                                            <div>
+                                            <div class="mb-3">
                                                 <?php echo htmlspecialchars($task['nume']); ?>
-                                                <a href="informatii_task.php?id=<?php echo $task['id']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
+                                                <a href="/Sarcini/informatii_task.php?id=<?php echo $task['id']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
                                                 <a href="#" class="confirm-icon" data-taskid="<?php echo $task['id']; ?>"><i class="fas fa-check"></i></a>
                                             </div>
                                         <?php endforeach; ?>
@@ -153,9 +154,33 @@ $conn->close();
 
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+            document.querySelectorAll('.confirm-icon').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const taskId = this.getAttribute('data-taskid');
+                    Swal.fire({
+                        title: 'Ați finalizat task-ul?',
+                        text: "Confirmați că ați finalizat acest task.",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Da',
+                        cancelButtonText: 'Anulare',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "sterge_task.php?id=" + taskId;
+                        }
+                    });
+                });
+            });
+        </script>
 
     </body>
 </html>
