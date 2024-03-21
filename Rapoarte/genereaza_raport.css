@@ -120,15 +120,12 @@ h1 {
     margin-top: 75px;
 }
 
-.filter-order-group {
-    margin-top: 50px;
-}
-
 .custom-btn {
     background-color: #ADD8E6; /* Setează culoarea de fundal */
     color: black; /* Setează culoarea textului */
     border: 1px solid black; /* Setează culoarea border-ului */
-    margin-top: 150px; /* Adaugă spațiere între input și buton */
+    margin-top: -150px;
+    margin-left: 150px;
     white-space: nowrap; /* Asigură că textul nu se va întrerupe */
 }
 

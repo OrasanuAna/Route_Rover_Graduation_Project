@@ -113,14 +113,14 @@ body {
 h1 {
     font-family: 'Playfair Display', sans-serif;
     margin-top: 60px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .custom-btn {
     background-color: #ADD8E6; /* Setează culoarea de fundal */
     color: black; /* Setează culoarea textului */
     border: 1px solid black; /* Setează culoarea border-ului */
-    margin-top: 50px; /* Adaugă spațiere între input și buton */
+    margin-top: 35px; /* Adaugă spațiere între input și buton */
     white-space: nowrap; /* Asigură că textul nu se va întrerupe */
     margin-bottom: -50px; 
 }

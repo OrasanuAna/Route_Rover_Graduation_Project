@@ -1,3 +1,89 @@
+<?php
+
+require '../vendor/autoload.php'; // Include autoloader-ul Composer pentru a putea folosi TCPDF
+
+session_start();
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Verifică dacă utilizatorul este autentificat
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /Autentificare/autentificare.php');
+    exit;
+}
+
+include '../db_connect.php'; // Include conexiunea la baza de date
+
+$userID = $_SESSION['user_id']; // Preia ID-ul utilizatorului conectat
+
+// Inițializare variabile pentru stocarea erorilor și a mesajelor
+$error = '';
+$message = '';
+
+// Verifică dacă formularul a fost trimis
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tabel']) && !empty($_POST['fields'])) {
+    // Preia informațiile selectate de utilizator
+    $tabel = mysqli_real_escape_string($conn, $_POST['tabel']);
+    $fields = $_POST['fields']; // Acesta este un array
+
+    // Crează o instanță nouă de TCPDF
+    $pdf = new TCPDF();
+
+    // Setări document
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('Route Rover');
+    $pdf->SetTitle('Raport');
+    $pdf->SetSubject('Raport generat automat');
+    $pdf->SetKeywords('TCPDF, PDF, raport');
+
+    // Setări header și footer în document
+    $pdf->setPrintHeader(false);
+    $pdf->setPrintFooter(false);
+
+    // Adaugă o pagină nouă
+    $pdf->AddPage();
+
+    // Construiește interogarea SQL bazată pe selecțiile utilizatorului
+    $selectedFields = implode(', ', array_map(function($field) use ($conn) {
+        return mysqli_real_escape_string($conn, $field);
+    }, $fields));
+
+    $sql = "SELECT $selectedFields FROM $tabel WHERE UtilizatorID = $userID";
+    $result = $conn->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        // Adaugă tabelul în PDF
+        $tbl = '<table cellspacing="0" cellpadding="6" border="1">';
+        $tbl .= '<tr>';
+
+        // Antetele tabelului
+        foreach ($fields as $field) {
+            $tbl .= '<th>' . htmlspecialchars($field) . '</th>';
+        }
+        $tbl .= '</tr>';
+
+        // Datele tabelului
+        while ($row = $result->fetch_assoc()) {
+            $tbl .= '<tr>';
+            foreach ($fields as $field) {
+                $tbl .= '<td>' . htmlspecialchars($row[$field]) . '</td>';
+            }
+            $tbl .= '</tr>';
+        }
+        $tbl .= '</table>';
+
+        // Scrie tabelul în obiectul PDF
+        $pdf->writeHTML($tbl, true, false, false, false, '');
+
+        // Închide și trimite documentul PDF
+        $pdf->Output('raport.pdf', 'I');
+    } else {
+        $error = 'Nu există date pentru acest raport.';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -51,10 +137,10 @@
 
         <div class="container my-5">
             <h1 class="text-center">Generează un raport</h1>
-            <div class="row justify-content-center">
-                <div class="col-lg-3 col-md-4 mb-4 radio-group">
-                    <h2>Selectează tabelul:</h2>
-                    <form id="reportForm">
+            <form id="reportForm" method="POST">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-md-4 mb-4">
+                        <h2>Selectează tabelul:</h2>
                         <div class="form-group">
                             <div>
                                 <input type="radio" id="soferi" name="tabel" value="Soferi">
@@ -77,36 +163,23 @@
                                 <label for="sarcini">Sarcini</label>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="col-lg-3 col-md-4 mb-4 filter">
-                    <h2>Filtrează</h2>
-                    <div id="fieldSelection" class="form-group">
-                        <!-- Checkbox-urile pentru câmpuri vor fi generate dinamic -->
+                    </div>
+                    <div class="col-lg-3 col-md-4 mb-4">
+                        <h2>Filtrează</h2>
+                        <div id="fieldSelection" class="form-group">
+                            <!-- Checkbox-urile pentru câmpuri vor fi generate dinamic -->
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 mb-4">
-                    <h2>Ordonează</h2>
-                    <div class="form-group">
-                        <div>
-                            <input type="radio" id="ascending" name="ordoneaza" value="Crescător">
-                            <label for="ascending">Crescător</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="descending" name="ordoneaza" value="Descrescător">
-                            <label for="descending">Descrescător</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="alphabetic" name="ordoneaza" value="Alfabetic">
-                            <label for="alphabetic">Alfabetic</label>
-                        </div>
-                    </div>
-                    <div>
+                <!-- Butonul plasat în afara .row pentru a evita deplasarea acestuia -->
+                <div class="row justify-content-center">
+                    <div class="col text-center">
                         <button type="submit" class="btn custom-btn">Generează raport</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
+
 
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
