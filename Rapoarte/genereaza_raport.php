@@ -19,10 +19,18 @@ $userID = $_SESSION['user_id']; // Preia ID-ul utilizatorului conectat
 
 // Inițializare variabile pentru stocarea erorilor și a mesajelor
 $error = '';
-$message = '';
 
 // Verifică dacă formularul a fost trimis
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tabel']) && !empty($_POST['fields'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!isset($_POST['tabel']) || empty($_POST['tabel'])) {
+        $error = 'Trebuie selectată o tabelă.';
+    }
+    // Verifică dacă au fost selectate filtre (câmpuri)
+    elseif (!isset($_POST['fields']) || empty($_POST['fields'])) {
+        $error = 'Trebuie selectat cel puțin un filtru.';
+    }
+    else {
+
     // Preia informațiile selectate de utilizator
     $tabel = mysqli_real_escape_string($conn, $_POST['tabel']);
     $fields = $_POST['fields']; // Acesta este un array
@@ -44,6 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tabel']) && !empty($_P
     // Adaugă o pagină nouă
     $pdf->AddPage();
 
+    $pdf->SetFont('freeserif', '', 12, '', true); // 'freeserif' este un font care suportă caracterele UTF-8.
+
     // Construiește interogarea SQL bazată pe selecțiile utilizatorului
     $selectedFields = implode(', ', array_map(function($field) use ($conn) {
         return mysqli_real_escape_string($conn, $field);
@@ -54,8 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tabel']) && !empty($_P
 
     if ($result && $result->num_rows > 0) {
         // Adaugă tabelul în PDF
-        $tbl = '<table cellspacing="0" cellpadding="6" border="1">';
-        $tbl .= '<tr>';
+        $tbl = '<style>
+            th {
+                background-color: #ADD8E6;
+                color: #000;
+                font-weight: bold;
+            }
+        </style>
+        <table cellspacing="0" cellpadding="6" border="1">
+        <tr>';
 
         // Antetele tabelului
         foreach ($fields as $field) {
@@ -78,11 +95,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tabel']) && !empty($_P
 
         // Închide și trimite documentul PDF
         $pdf->Output('raport.pdf', 'I');
-    } else {
+        } else {
         $error = 'Nu există date pentru acest raport.';
+        }
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -137,6 +156,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tabel']) && !empty($_P
 
         <div class="container my-5">
             <h1 class="text-center">Generează un raport</h1>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="alert-container">
+                        <?php if ($error): ?>
+                            <div class="alert alert-danger text-center" role="alert"><?php echo $error; ?></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
             <form id="reportForm" method="POST">
                 <div class="row justify-content-center">
                     <div class="col-lg-3 col-md-4 mb-4">
@@ -165,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tabel']) && !empty($_P
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4 mb-4">
-                        <h2>Filtrează</h2>
+                        <h2>Filtrează:</h2>
                         <div id="fieldSelection" class="form-group">
                             <!-- Checkbox-urile pentru câmpuri vor fi generate dinamic -->
                         </div>
@@ -174,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tabel']) && !empty($_P
                 <!-- Butonul plasat în afara .row pentru a evita deplasarea acestuia -->
                 <div class="row justify-content-center">
                     <div class="col text-center">
-                        <button type="submit" class="btn custom-btn">Generează raport</button>
+                        <button type="submit" class="btn custom-btn"><i class="fas fa-chart-bar"></i> Generează raport</button>
                     </div>
                 </div>
             </form>
@@ -182,7 +212,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tabel']) && !empty($_P
 
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <!-- Script pentru a ascunde alertele după 3 secunde -->
+        <script>
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('.alert').fadeOut('slow');
+                }, 3000);
+            });
+        </script>
 
         <script>
             // Obținerea elementelor necesare din DOM

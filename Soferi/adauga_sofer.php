@@ -174,6 +174,6 @@ mysqli_close($conn);
                 }, 3000);
             });
         </script>
-    </body>
 
+    </body>
 </html>

@@ -116,16 +116,21 @@ h1 {
     margin-top: 50px !important;
 }
 
+.alert-container {
+    min-height: 60px; /* Setează înălțimea minimă a container-ului */
+    margin-bottom: 20px; /* Adaugă spațiere între container și restul conținutului */
+    margin-right: 95px;
+}
+
 .row {
-    margin-top: 75px;
-    margin-left: 85px;
+    margin-left: 75px;
 }
 
 .custom-btn {
     background-color: #ADD8E6; /* Setează culoarea de fundal */
     color: black; /* Setează culoarea textului */
     border: 1px solid black; /* Setează culoarea border-ului */
-    margin-top: -150px;
+    margin-top: -50px;
     margin-left: 150px;
     white-space: nowrap; /* Asigură că textul nu se va întrerupe */
 }
