@@ -107,6 +107,13 @@ $conn->close();
 
             <div class="container table-container">
                 <div class="row">
+                    <div class="col text-left">
+                        <a href="/Rapoarte/genereaza_raport.php" class="btn custom-btn">
+                            <i class="fas fa-file-alt"></i> Generează un raport
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <table class="table">
                             <thead class="text-black" style="background-color: #ADD8E6;">
