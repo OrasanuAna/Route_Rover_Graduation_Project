@@ -35,8 +35,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tabel = mysqli_real_escape_string($conn, $_POST['tabel']);
     $fields = $_POST['fields']; // Acesta este un array
 
+    class PDFWithWatermark extends TCPDF {
+        public function Footer() {
+            // Setează transparența pentru watermark
+            $this->SetAlpha(0.2);
+            
+            // Alege fontul, mărimea și culoarea
+            $this->SetFont('Helvetica', 'B', 50);
+            
+            // Salvează starea curentă a matricii de transformare
+            $this->StartTransform();
+            
+            // Rotire text și poziționare
+            $this->Rotate(45, 110, 230);
+            
+            // Setează culoarea textului (gri)
+            $this->SetTextColor(150, 150, 150);
+            
+            // Adaugă textul
+            $this->Text(150, 120, 'Route Rover');
+            
+            // Restabilește starea matricii de transformare
+            $this->StopTransform();
+            
+            // Resetează transparența la valoarea normală
+            $this->SetAlpha(1);
+        }
+    }
+
     // Crează o instanță nouă de TCPDF
-    $pdf = new TCPDF();
+    $pdf = new PDFWithWatermark();
 
     // Setări document
     $pdf->SetCreator(PDF_CREATOR);
@@ -47,7 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Setări header și footer în document
     $pdf->setPrintHeader(false);
-    $pdf->setPrintFooter(false);
+    $pdf->setPrintFooter(true);
+
 
     // Adaugă o pagină nouă
     $pdf->AddPage();
@@ -84,10 +113,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         while ($row = $result->fetch_assoc()) {
             $tbl .= '<tr>';
             foreach ($fields as $field) {
-                $tbl .= '<td>' . htmlspecialchars($row[$field]) . '</td>';
+                // Verifică dacă valoarea este o dată în format Y-M-D
+                if (preg_match('/^\\d{4}-\\d{2}-\\d{2}$/', $row[$field])) {
+                    // Converteste data din Y-M-D în D-M-Y
+                    $formattedDate = date('d-m-Y', strtotime($row[$field]));
+                    $tbl .= '<td>' . htmlspecialchars($formattedDate) . '</td>';
+                } else {
+                    // Dacă valoarea nu este o dată, o afișează nemodificată
+                    $tbl .= '<td>' . htmlspecialchars($row[$field]) . '</td>';
+                }
             }
             $tbl .= '</tr>';
         }
+
         $tbl .= '</table>';
 
         // Scrie tabelul în obiectul PDF
@@ -101,7 +139,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
