@@ -95,21 +95,6 @@ body {
     transition: width 0.3s ease, left 0.3s ease;
 }
 
-/* Stiluri pentru link-ul activ */
-.navbar-light .navbar-nav .nav-item.active .nav-link {
-    position: relative; /* Asigură-te că link-ul poate avea conținut absolut poziționat */
-}
-
-.navbar-light .navbar-nav .nav-item.active .nav-link::after {
-    content: "";
-    position: absolute;
-    bottom: -5px; /* Ajustează această valoare la fel ca la hover, dacă este necesar */
-    left: 0;
-    width: 100%; /* Linia va ocupa întreaga lățime */
-    height: 2px; /* Setează înălțimea liniei */
-    background-color: #000; /* Ajustează culoarea liniei, dacă este necesar */
-}
-
 h1 {
     font-family: 'Playfair Display', sans-serif;
     margin-bottom: 25px !important;

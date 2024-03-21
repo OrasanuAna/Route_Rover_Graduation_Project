@@ -132,7 +132,7 @@ $conn->close();
                         <a class="nav-link" href="/Contracte/contracte.php"><i class="fas fa-file-contract"></i> Contracte</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Sarcini/adauga_task.php"><i class="fas fa-tasks"></i> Task nou</a>
+                        <a class="nav-link" href="/Rapoarte/genereaza_raport.php"><i class="fas fa-chart-bar"></i> Rapoarte</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">

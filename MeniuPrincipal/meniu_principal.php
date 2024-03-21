@@ -89,7 +89,7 @@ $conn->close();
                         <a class="nav-link" href="/Contracte/contracte.php"><i class="fas fa-file-contract"></i> Contracte</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Sarcini/adauga_task.php"><i class="fas fa-tasks"></i> Task nou</a>
+                        <a class="nav-link" href="/Rapoarte/genereaza_raport.php"><i class="fas fa-chart-bar"></i> Rapoarte</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto"> 
@@ -107,9 +107,9 @@ $conn->close();
 
             <div class="container table-container">
                 <div class="row">
-                    <div class="col text-left">
-                        <a href="/Rapoarte/genereaza_raport.php" class="btn custom-btn">
-                            <i class="fas fa-file-alt"></i> Generează un raport
+                    <div class="col text-center">
+                        <a href="/Sarcini/adauga_task.php" class="btn custom-btn">
+                            <i class="fas fa-plus-circle"></i> Adauga un task
                         </a>
                     </div>
                 </div>

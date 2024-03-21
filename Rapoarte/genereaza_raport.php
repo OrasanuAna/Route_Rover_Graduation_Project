@@ -37,8 +37,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/Contracte/contracte.php"><i class="fas fa-file-contract"></i> Contracte</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Sarcini/adauga_task.php"><i class="fas fa-tasks"></i> Task nou</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Rapoarte/genereaza_raport.php"><i class="fas fa-chart-bar"></i> Rapoarte</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -51,8 +51,8 @@
 
         <div class="container my-5">
             <h1 class="text-center">Generează un raport</h1>
-            <div class="row">
-                <div class="col-md-3 mb-4 radio-group">
+            <div class="row justify-content-center">
+                <div class="col-lg-3 col-md-4 mb-4 radio-group">
                     <h2>Selectează tabelul:</h2>
                     <form id="reportForm">
                         <div class="form-group">
@@ -79,36 +79,35 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-9 mb-4 filter-order-group">
-                    <div class="row">
-                        <div class="col-md-4 filter">
-                            <h2>Filtrează</h2>
-                            <div id="fieldSelection" class="form-group">
-                                <!-- Checkbox-urile pentru câmpuri vor fi generate dinamic -->
-                            </div>
+                <div class="col-lg-3 col-md-4 mb-4 filter">
+                    <h2>Filtrează</h2>
+                    <div id="fieldSelection" class="form-group">
+                        <!-- Checkbox-urile pentru câmpuri vor fi generate dinamic -->
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h2>Ordonează</h2>
+                    <div class="form-group">
+                        <div>
+                            <input type="radio" id="ascending" name="ordoneaza" value="Crescător">
+                            <label for="ascending">Crescător</label>
                         </div>
-                        <div class="col-md-4">
-                            <h2>Ordonează</h2>
-                            <div class="form-group">
-                                <div>
-                                    <input type="radio" id="ascending" name="ordoneaza" value="Crescător">
-                                    <label for="ascending">Crescător</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="descending" name="ordoneaza" value="Descrescător">
-                                    <label for="descending">Descrescător</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="alphabetic" name="ordoneaza" value="Alfabetic">
-                                    <label for="alphabetic">Alfabetic</label>
-                                </div>
-                            </div>
+                        <div>
+                            <input type="radio" id="descending" name="ordoneaza" value="Descrescător">
+                            <label for="descending">Descrescător</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="alphabetic" name="ordoneaza" value="Alfabetic">
+                            <label for="alphabetic">Alfabetic</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn custom-btn float-right">Generează raport</button>
+                    <div>
+                        <button type="submit" class="btn custom-btn">Generează raport</button>
+                    </div>
                 </div>
             </div>
         </div>
+
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
