@@ -140,20 +140,16 @@ $conn->close(); // Închide conexiunea la baza de date
                     <!-- Câmpurile pentru nume, prenume și nume de utilizator -->
                     <div class="form-group">
                         <label for="nume">Nume:</label>
-                        <div class="input-group">
+                        <div class="input-group position-relative">
                             <input type="text" class="form-control custom-input" id="nume" name="nume" autocomplete="off" value="<?php echo htmlspecialchars($userInfo['Nume']); ?>">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-edit"></i></span>
-                            </div>
+                            <i class="fas fa-edit field-icon" style="color: #495057;"></i>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="prenume">Prenume:</label>
-                        <div class="input-group">
+                        <div class="input-group position-relative">
                             <input type="text" class="form-control custom-input" id="prenume" name="prenume" autocomplete="off" value="<?php echo htmlspecialchars($userInfo['Prenume']); ?>">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-edit"></i></span>
-                            </div>
+                            <i class="fas fa-edit field-icon" style="color: #495057;"></i>
                         </div>
                     </div>
                     <div class="form-group">
@@ -168,28 +164,20 @@ $conn->close(); // Închide conexiunea la baza de date
                     <!-- Câmpurile pentru email și număr de telefon -->
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <div class="input-group">
+                        <div class="input-group position-relative">
                             <input type="email" class="form-control custom-input" id="email" name="email" autocomplete="off" value="<?php echo htmlspecialchars($userInfo['Email']); ?>">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-edit"></i></span>
-                            </div>
+                            <i class="fas fa-edit field-icon" style="color: #495057;"></i>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="telefon">Nr. Telefon:</label>
-                        <div class="input-group">
+                        <div class="input-group position-relative">
                             <input type="text" class="form-control custom-input" id="telefon" name="telefon" autocomplete="off" value="<?php echo htmlspecialchars($userInfo['Telefon']); ?>">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-edit"></i></span>
-                            </div>
+                            <i class="fas fa-edit field-icon" style="color: #495057;"></i>
                         </div>
                     </div>
                     <!-- Gruparea butoanelor -->
                     <div class="form-group d-flex align-items-end justify-content-end">
-                        <!-- Buton pentru resetarea parolei -->
-                        <a href="/Profil/resetare_parola.php" class="btn custom-reset-btn mr-3">
-                            <i class="fas fa-key"></i> Resetare parolă
-                        </a>
                         <!-- Buton pentru trimiterea formularului -->
                         <button type="submit" class="btn btn-outline-primary custom-update-btn">
                             <i class="fas fa-redo"></i> Actualizează informațiile

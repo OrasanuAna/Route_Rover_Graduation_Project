@@ -22,6 +22,14 @@ body {
     justify-content: center;
 }
 
+.field-icon {
+    position: absolute;
+    right: 15px;
+    top: calc(50% - 7.5px);
+    cursor: pointer;
+    z-index: 2;
+}
+
 @media (min-width: 992px) { /* Bootstrap breakpoint for large devices */
     .img-full-height {
         width: 100%; /* Make the image cover the available width */

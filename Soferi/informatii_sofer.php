@@ -142,29 +142,23 @@ $conn->close();
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="nume">Nume:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="nume" name="nume" autocomplete="off" value="<?php echo htmlspecialchars($soferInfo['Nume']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="prenume">Prenume:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="prenume" name="prenume" autocomplete="off" value="<?php echo htmlspecialchars($soferInfo['Prenume']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="telefon">Telefon:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="telefon" name="telefon" autocomplete="off"  value="<?php echo htmlspecialchars($soferInfo['Telefon']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">
@@ -220,11 +214,9 @@ $conn->close();
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="email" class="form-control" id="email" name="email" autocomplete="off" value="<?php echo htmlspecialchars($soferInfo['Email']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">

@@ -1,16 +1,17 @@
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector('.toggle-password').addEventListener('click', function (e) {
-        const target = e.target;
-        const input = target.closest('.input-group').querySelector('input');
-        if (input.getAttribute("type") === "password") {
-            input.setAttribute("type", "text");
-            target.classList.add("fa-eye");
-            target.classList.remove("fa-eye-slash");
-        } else {
-            input.setAttribute("type", "password");
-            target.classList.remove("fa-eye");
-            target.classList.add("fa-eye-slash");
-        }
+    document.querySelectorAll('.toggle-password').forEach(function(item) {
+        item.addEventListener('click', function() {
+            var input = document.querySelector(this.getAttribute("toggle"));
+            if (input.getAttribute("type") == "password") {
+                input.setAttribute("type", "text");
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            } else {
+                input.setAttribute("type", "password");
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            }
+        });
     });
 });
 

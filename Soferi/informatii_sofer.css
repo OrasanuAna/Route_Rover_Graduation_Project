@@ -105,6 +105,13 @@ h1 {
     margin-top: 20px;
 }
 
+.field-icon {
+    position: absolute;
+    right: 15px;
+    top: calc(50% - 7.5px);
+    z-index: 3;
+}
+
 .custom-update-btn {
     background-color: #ADD8E6; /* Setează culoarea de fundal */
     color: black; /* Setează culoarea textului */

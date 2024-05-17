@@ -67,15 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="form-group">
                             <input type="text" class="form-control" name="username" autocomplete="off" placeholder="Nume de utilizator">
                         </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="password" class="form-control" name="password" placeholder="Parola">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-eye-slash toggle-password" style="cursor: pointer;"></i>
-                                    </span>
-                                </div>
-                            </div>
+                        <div class="form-group position-relative">
+                            <input type="password" class="form-control" name="password" placeholder="Parola" id="password">
+                            <i toggle="#password" class="fas fa-fw fa-eye-slash field-icon toggle-password" style="color: #495057;"></i>    
                         </div>
                         <div class="d-flex flex-column">
                             <button type="submit" class="btn btn-primary mb-3">Conectare</button>

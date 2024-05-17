@@ -154,20 +154,16 @@ $conn->close();
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="numarInmatriculare">Număr de înmatriculare:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="numarInmatriculare" name="numarInmatriculare" value="<?php echo htmlspecialchars($vehiculInfo['NumarInmatriculare']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="marcaModel">Marca și model:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="marcaModel" name="marcaModel" value="<?php echo htmlspecialchars($vehiculInfo['MarcaModel']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">
@@ -181,20 +177,16 @@ $conn->close();
                         </div>
                         <div class="form-group">
                             <label for="culoare">Culoare:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="culoare" name="culoare" value="<?php echo htmlspecialchars($vehiculInfo['Culoare']); ?>" autocomplete="off">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tipCombustibil">Tipul de combustibil:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="tipCombustibil" name="tipCombustibil" value="<?php echo htmlspecialchars($vehiculInfo['TipCombustibil']); ?>" autocomplete="off">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                     </div>

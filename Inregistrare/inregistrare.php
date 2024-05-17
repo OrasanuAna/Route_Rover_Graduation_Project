@@ -87,21 +87,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="form-group">
                             <input type="text" class="form-control" name="telefon" autocomplete="off" placeholder="Nr de telefon">
                         </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="password" class="form-control" name="parola" placeholder="Parola" autocomplete="new-password">
-                                <div class="input-group-append">
-                                    <span class="input-group-text toggle-password"><i class="fa fa-eye-slash" style="cursor: pointer;"></i></span>
-                                </div>
-                            </div>
+                        <div class="form-group position-relative">
+                            <input type="password" class="form-control" name="parola" placeholder="Parola" id="parola">
+                            <i toggle="#parola" class="fas fa-fw fa-eye-slash field-icon toggle-password" style="color: #495057;"></i>
                         </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="password" class="form-control" name="confirmare_parola" placeholder="Confirma parola" autocomplete="new-password">
-                                <div class="input-group-append">
-                                    <span class="input-group-text toggle-password"><i class="fa fa-eye-slash" style="cursor: pointer;"></i></span>
-                                </div>
-                            </div>
+                        <div class="form-group position-relative">
+                            <input type="password" class="form-control" name="confirmare_parola" placeholder="Confirmare parolă" id="confirmare_parola">
+                            <i toggle="#confirmare_parola" class="fas fa-fw fa-eye-slash field-icon toggle-password" style="color: #495057;"></i>
                         </div>
                         <div class="d-flex flex-column">
                             <button type="submit" class="btn btn-primary mb-3">Înainte</button>

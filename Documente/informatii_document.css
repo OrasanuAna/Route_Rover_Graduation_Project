@@ -110,6 +110,12 @@ h1 {
     font-weight: bold;
 }
 
+.field-icon {
+    position: absolute;
+    right: 15px;
+    top: calc(50% - 7.5px);
+    z-index: 3;
+}
 
 .custom-update-btn {
     background-color: #ADD8E6; /* Setează culoarea de fundal */

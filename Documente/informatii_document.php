@@ -161,20 +161,16 @@ $conn->close();
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="numeDocument">Nume document:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="numeDocument" name="numeDocument" autocomplete="off" value="<?php echo htmlspecialchars($documentInfo['NumeDocument']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tipDocument">Tip document:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="tipDocument" name="tipDocument" autocomplete="off" value="<?php echo htmlspecialchars($documentInfo['TipDocument']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                     </div>

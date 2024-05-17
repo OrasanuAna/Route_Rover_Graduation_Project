@@ -163,20 +163,16 @@ $conn->close();
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="numeContract">Nume contract:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="numeContract" name="numeContract" autocomplete="off" value="<?php echo htmlspecialchars($contractInfo['NumeContract']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tipContract">Tip contract:</label>
-                            <div class="input-group">
+                            <div class="input-group position-relative">
                                 <input type="text" class="form-control" id="tipContract" name="tipContract" autocomplete="off" value="<?php echo htmlspecialchars($contractInfo['TipContract']); ?>">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-                                </div>
+                                <i class="fas fa-pencil-alt field-icon" style="color: #495057;"></i>
                             </div>
                         </div>
                         <div class="form-group">

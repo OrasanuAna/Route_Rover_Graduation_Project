@@ -121,7 +121,14 @@ h1 {
 }
 
 .custom-input {
-    max-width: 300px;
+    max-width: 325px;
+}
+
+.field-icon {
+    position: absolute;
+    right: 40px;
+    top: calc(50% - 7.5px);
+    z-index: 3;
 }
 
 .custom-update-btn {
@@ -129,25 +136,11 @@ h1 {
     color: black; /* Setează culoarea textului */
     border: 1px solid black; /* Setează culoarea border-ului */
     margin-top: 150px; /* Adaugă spațiere între input și buton */
+    margin-right: 53px;
     white-space: nowrap; /* Asigură că textul nu se va întrerupe */
 }
 
 .custom-update-btn:hover {
-    background-color: #87CEEB; /* Schimbă culoarea de fundal la hover */
-    color: black; /* Schimbă culoarea textului la hover */
-    border: 1px solid black; /* Schimbă culoarea border-ului la hover */
-}
-
-.custom-reset-btn {
-    background-color: #d5ebf1; /* Setează culoarea de fundal */
-    color: black; /* Setează culoarea textului */
-    border: 1px solid black; /* Setează culoarea border-ului */
-    margin-top: 150px; /* Adaugă spațiere între input și buton */
-    margin-right: 10px; /* Adaugă spațiere între butoane */
-    white-space: nowrap; /* Asigură că textul nu se va întrerupe */
-}
-
-.custom-reset-btn:hover {
     background-color: #87CEEB; /* Schimbă culoarea de fundal la hover */
     color: black; /* Schimbă culoarea textului la hover */
     border: 1px solid black; /* Schimbă culoarea border-ului la hover */
