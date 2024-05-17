@@ -36,6 +36,20 @@ body {
     z-index: 2;
 }
 
+a {
+    color: #495057;;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #495057;;
+    text-decoration: underline;
+}
+
+.buttons {
+    margin-top: 75px;
+}
+
 @media (min-width: 992px) { /* Bootstrap breakpoint for large devices */
     .img-full-height {
         width: 100%; /* Make the image cover the available width */

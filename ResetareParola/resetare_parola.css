@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Playfair Display', sans-serif;
+    height: 100vh;
+    background-image: url('/Imagini/ResetPasswordBG.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ADD8E6;
+    color: #fff;
+}
+
+body::before {
+    content: '';
+    position: fixed; /* Asigură că overlay-ul acoperă tot ecranul */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3); /* Negru cu opacitate de 50% */
+    z-index: -1; /* Asigură că overlay-ul este sub conținut */
+}
+
+.form-container {
+    background-color: #fff; /* Setează fundalul alb */
+    border-radius: 8px; /* Rotunjește colțurile */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 1); /* Adaugă umbra */
+    padding: 20px; /* Adaugă spațiu în interiorul containerului */
+    margin-top: 20px; /* Dă un spațiu suplimentar deasupra containerului */
+    width: 500px;
+}
+
+i {
+    font-size: 4.5rem;
+    color: #ADD8E6;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 30px;
+}
+
+.alert-container {
+    min-height: 75px;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border: 1px solid #000;
+}
+
+.custom-btn {
+    background-color: #ADD8E6; /* Setează culoarea de fundal */
+    color: black; /* Setează culoarea textului */
+    border: 1px solid black; /* Setează culoarea border-ului */
+    white-space: nowrap; /* Asigură că textul nu se va întrerupe */
+}
+
+.custom-btn:hover {
+    background-color: #87CEEB;
+}
