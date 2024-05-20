@@ -8,6 +8,14 @@
     Parola VARCHAR(100)
 );
 
+CREATE TABLE ResetareParola (
+    ResetID INT AUTO_INCREMENT PRIMARY KEY,
+    Email VARCHAR(50),
+    Token VARCHAR(255),
+    Expira DATETIME,
+    FOREIGN KEY (Email) REFERENCES Utilizatori(Email)
+);
+
 CREATE TABLE Soferi (
     SoferID INT AUTO_INCREMENT PRIMARY KEY,
     Nume VARCHAR(50),
