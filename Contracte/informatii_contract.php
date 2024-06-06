@@ -137,6 +137,9 @@ $conn->close();
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
+                        <a class="nav-link no-hover-effect" style="padding-top: 12px;" href="#" id="themeToggle"><i class="fas fa-sun"></i></a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link no-hover-effect" href="/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                 </ul>
@@ -244,6 +247,123 @@ $conn->close();
                 });
             });
         </script>
+
+        <script>
+            // Schimbă tema la clic pe iconiță
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const themeIcon = this.querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Setează tema inițială în funcție de preferința stocată
+            window.addEventListener('DOMContentLoaded', () => {
+                const storedTheme = localStorage.getItem('theme') || 'light';
+                if (storedTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    document.getElementById('themeToggle').querySelector('i').classList.add('fa-moon');
+                    document.getElementById('themeToggle').querySelector('i').classList.remove('fa-sun');
+                }
+            });
+        </script>
+
+        <!-- CSS pentru tema dark mode -->
+        <style>
+            .dark-mode {
+                background-color: #1A2733;
+                color: white;
+            }
+
+            .dark-mode .navbar {
+                background-color: #0A0F19 !important;
+            }
+
+            .dark-mode .navbar-light .navbar-brand,
+            .dark-mode .navbar-light .navbar-nav .nav-link {
+                color: white !important;
+            }
+
+            .dark-mode .navbar-light .navbar-nav .nav-item .nav-link:not(.no-hover-effect):hover::after,
+            .dark-mode .navbar-light .navbar-nav .nav-item .nav-link:not(.no-hover-effect):focus::after {
+                background-color: #fff;
+            }
+
+            .dark-mode .navbar-light .navbar-nav .nav-item .nav-link:not(.no-hover-effect)::after {
+                background-color: #fff; 
+            }
+
+            .dark-mode .navbar-light .navbar-nav .nav-link:hover,
+            .dark-mode .navbar-light .navbar-nav .nav-link:focus {
+                color: #ddd;
+            }
+
+            .dark-mode .table {
+                background-color: #1A2733;
+                color: white;
+            }
+
+            .dark-mode .table th {
+                background-color: #0A0F19;
+                border: none;
+            }
+
+            .dark-mode .table td {
+                background-color: #1A2733;
+            }
+
+            .dark-mode tbody tr:hover {
+                background-color: #0A0F19; /* Schimbă culoarea de fundal la hover */
+            }
+
+            .dark-mode .btn.custom-btn {
+                background-color: #0A0F19;
+                border-color: #fff;
+                color: #fff;
+            }
+            
+            .dark-mode .btn.custom-btn:hover {
+                background-color: #05060A;
+                border-color: #fff;
+            }
+
+            .dark-mode .custom-update-btn {
+                background-color: #0A0F19;
+                border-color: #fff;
+                color: #fff;
+            }
+
+            .dark-mode .custom-update-btn:hover {
+                background-color: #05060A;
+                border-color: #fff;
+            }
+
+            .dark-mode .btn-add {
+                background-color: #0A0F19;
+                border-color: #fff;
+                color: #fff;
+            }
+
+            .dark-mode .btn-add:hover {
+                background-color: #05060A;
+                border-color: #fff;
+            }
+
+            .dark-mode .confirm-icon {
+                color: #3BD16F;
+            }
+
+            .dark-mode .confirm-icon:hover {
+                color: #006400;
+            }
+        </style>
 
     </body>
 </html>
