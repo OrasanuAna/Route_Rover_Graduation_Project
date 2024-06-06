@@ -15,4 +15,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// Verifică tema stocată în localStorage și aplică tema corespunzătoare
+window.addEventListener('DOMContentLoaded', () => {
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    if (storedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+});
+
 

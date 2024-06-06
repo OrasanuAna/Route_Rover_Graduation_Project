@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politica de Confidențialitate</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color:#d5ebf1;
+        }
+        .privacy-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            max-height: 88vh; /* Înălțime maximă */
+            overflow-y: auto; /* Permite scroll vertical */
+        }
+        .privacy-container h2, .privacy-container h3 {
+            margin-top: 20px;
+        }
+        .dark-mode {
+            background-color: #1A2733;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="privacy-container">
+        <h2>Politica de Confidențialitate</h2>
+        <p>Ultima actualizare: 1 Iunie 2024</p>
+        <p>Acest document descrie politica noastră de confidențialitate. Prin utilizarea serviciilor noastre, acceptați colectarea și utilizarea informațiilor conform acestei politici.</p>
+        
+        <h3>1. Informații pe care le colectăm</h3>
+        <p>Colectăm mai multe tipuri diferite de informații în diverse scopuri pentru a vă oferi și îmbunătăți serviciile noastre.</p>
+        <ul>
+            <li><strong>Informații personale:</strong> Când utilizați serviciile noastre, este posibil să vă solicităm să ne furnizați anumite informații de identificare personală care pot fi utilizate pentru a vă contacta sau identifica. Informațiile personale pot include, dar nu se limitează la numele dumneavoastră, adresa de email, numărul de telefon și adresa poștală.</li>
+            <li><strong>Date de utilizare:</strong> Colectăm informații despre modul în care se accesează și utilizează serviciile noastre ("Date de utilizare"). Aceste date de utilizare pot include informații precum adresa de IP a computerului dumneavoastră, tipul de browser, versiunea browserului, paginile serviciilor noastre pe care le vizitați, ora și data vizitei dumneavoastră, timpul petrecut pe acele pagini, identificatori unici de dispozitiv și alte date de diagnosticare.</li>
+        </ul>
+
+        <h3>2. Utilizarea datelor</h3>
+        <p>Utilizăm datele colectate în diverse scopuri:</p>
+        <ul>
+            <li>Pentru a furniza și menține serviciile noastre</li>
+            <li>Pentru a vă anunța despre modificările aduse serviciilor noastre</li>
+            <li>Pentru a vă permite să participați la caracteristici interactive ale serviciilor noastre atunci când alegeți să faceți acest lucru</li>
+            <li>Pentru a oferi suport clienților</li>
+            <li>Pentru a colecta analize sau informații valoroase astfel încât să putem îmbunătăți serviciile noastre</li>
+            <li>Pentru a monitoriza utilizarea serviciilor noastre</li>
+            <li>Pentru a detecta, preveni și aborda probleme tehnice</li>
+        </ul>
+
+        <h3>3. Transferul datelor</h3>
+        <p>Informațiile dumneavoastră, inclusiv datele personale, pot fi transferate către – și menținute pe – computere situate în afara statului, provinciei, țării sau altor jurisdicții guvernamentale unde legile de protecție a datelor pot diferi de cele din jurisdicția dumneavoastră.</p>
+
+        <h3>4. Dezvăluirea datelor</h3>
+        <p>Putem dezvălui informațiile personale pe care le colectăm sau le furnizați:</p>
+        <ul>
+            <li><strong>Conform legii:</strong> Dacă suntem obligați să dezvăluim sau să împărtășim datele dumneavoastră personale pentru a respecta orice obligație legală sau pentru a proteja drepturile, proprietatea sau siguranța companiei noastre, a clienților noștri sau a altora.</li>
+            <li><strong>Cu consimțământul dumneavoastră:</strong> În orice alt mod descris de noi atunci când furnizați informațiile sau cu consimțământul dumneavoastră.</li>
+        </ul>
+
+        <h3>5. Securitatea datelor</h3>
+        <p>Securitatea datelor dumneavoastră este importantă pentru noi, dar rețineți că nicio metodă de transmitere prin internet sau metodă de stocare electronică nu este 100% sigură. În timp ce ne străduim să utilizăm mijloace comerciale acceptabile pentru a vă proteja datele personale, nu putem garanta securitatea absolută a acestora.</p>
+
+        <h3>6. Modificări ale acestei Politici de Confidențialitate</h3>
+        <p>Putem actualiza politica noastră de confidențialitate din când în când. Vă vom notifica orice modificare prin postarea noii politici de confidențialitate pe această pagină.</p>
+
+        <h3>7. Contactați-ne</h3>
+        <p>Dacă aveți întrebări despre această Politică de Confidențialitate, vă rugăm să ne contactați:</p>
+        <ul>
+            <li>Prin email: suport@route-rover.ro</li>
+            <li>Prin telefon: +40 737 549 933</li>
+        </ul>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    // Verifică tema stocată în localStorage și aplică tema corespunzătoare
+    window.addEventListener('DOMContentLoaded', () => {
+        const storedTheme = localStorage.getItem('theme') || 'light';
+        if (storedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    });
+</script>
+</body>
+</html>

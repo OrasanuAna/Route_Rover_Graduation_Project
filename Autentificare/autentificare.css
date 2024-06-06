@@ -50,6 +50,15 @@ a:hover {
     margin-top: 75px;
 }
 
+.dark-mode {
+    background-color: #1A2733;
+    color: white;
+}
+
+.dark-mode a {
+    color: white;
+}
+
 @media (min-width: 992px) { /* Bootstrap breakpoint for large devices */
     .img-full-height {
         width: 100%; /* Make the image cover the available width */

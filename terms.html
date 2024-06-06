@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termeni și Condiții</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color:#d5ebf1;
+        }
+        .terms-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            max-height: 88vh; /* Înălțime maximă */
+            overflow-y: auto; /* Permite scroll vertical */
+        }
+        .terms-container h2, .terms-container h3 {
+            margin-top: 20px;
+        }
+        .dark-mode {
+            background-color: #1A2733;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="terms-container">
+        <h2>Termeni și Condiții</h2>
+        <p>Ultima actualizare: 1 Iunie 2024</p>
+        <p>Vă rugăm să citiți cu atenție acești termeni și condiții înainte de a utiliza serviciile noastre.</p>
+        
+        <h3>1. Acceptarea Termenilor</h3>
+        <p>Prin accesarea și utilizarea acestui site web și a serviciilor noastre, acceptați și sunteți de acord să respectați acești termeni și condiții. Dacă nu sunteți de acord cu acești termeni, vă rugăm să nu utilizați serviciile noastre.</p>
+
+        <h3>2. Modificarea Termenilor</h3>
+        <p>Ne rezervăm dreptul de a modifica sau înlocui acești termeni în orice moment. Vă vom notifica despre orice modificare prin postarea termenilor noi pe această pagină. Continuarea utilizării serviciilor noastre după postarea oricăror modificări constituie acceptarea modificărilor respective.</p>
+
+        <h3>3. Utilizarea Serviciilor</h3>
+        <p>Trebuie să utilizați serviciile noastre în conformitate cu toate legile și reglementările aplicabile. Nu trebuie să:</p>
+        <ul>
+            <li>Utilizați serviciile noastre pentru orice scop ilegal sau neautorizat.</li>
+            <li>Interferați cu sau perturbați integritatea sau performanța serviciilor noastre.</li>
+            <li>Încercați să obțineți acces neautorizat la sistemele noastre sau la conturile altor utilizatori.</li>
+        </ul>
+
+        <h3>4. Proprietatea Intelectuală</h3>
+        <p>Conținutul și materialele disponibile pe acest site sunt protejate de drepturi de autor, mărci comerciale și alte legi de proprietate intelectuală. Nu aveți permisiunea de a copia, modifica, distribui, vinde sau închiria orice parte a serviciilor noastre fără consimțământul nostru prealabil scris.</p>
+
+        <h3>5. Limitarea Răspunderii</h3>
+        <p>Serviciile noastre sunt furnizate "ca atare" și "așa cum sunt disponibile". Nu oferim nicio garanție cu privire la acuratețea, completitudinea sau actualitatea conținutului nostru. În măsura maximă permisă de lege, nu vom fi răspunzători pentru niciun fel de daune directe, indirecte, incidentale, speciale sau consecvente care rezultă din utilizarea sau incapacitatea de a utiliza serviciile noastre.</p>
+
+        <h3>6. Garanții și Declarații</h3>
+        <p>Nu oferim nicio garanție sau declarație cu privire la adecvarea, fiabilitatea, disponibilitatea, actualitatea și acuratețea serviciilor noastre pentru orice scop. În măsura maximă permisă de lege, toate aceste servicii sunt furnizate fără garanții de orice fel.</p>
+
+        <h3>7. Legea Aplicabilă</h3>
+        <p>Acești termeni și condiții sunt guvernați și interpretați în conformitate cu legile din jurisdicția noastră. Orice dispute legate de acești termeni vor fi supuse jurisdicției exclusive a instanțelor din acea jurisdicție.</p>
+
+        <h3>8. Contactați-ne</h3>
+        <p>Dacă aveți întrebări despre acești termeni și condiții, vă rugăm să ne contactați:</p>
+        <ul>
+            <li>Prin email: suport@route-rover.ro</li>
+            <li>Prin telefon: +40 737 549 933</li>
+        </ul>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    // Verifică tema stocată în localStorage și aplică tema corespunzătoare
+    window.addEventListener('DOMContentLoaded', () => {
+        const storedTheme = localStorage.getItem('theme') || 'light';
+        if (storedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    });
+</script>
+</body>
+</html>

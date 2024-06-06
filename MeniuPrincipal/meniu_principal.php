@@ -162,6 +162,23 @@ $conn->close();
         </div>
     </div>
 
+    <div class="floating-container">
+        <div class="floating-button">
+            <i class="fas fa-headset"></i>
+        </div>
+        <div class="element-container">
+            <a href="../contact.html" class="float-element tooltip-left" data-tooltip="Contact">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="../privacy.html" class="float-element tooltip-left" data-tooltip="Politica de Confidențialitate">
+                <i class="fas fa-shield-alt"></i>
+            </a>
+            <a href="../terms.html" class="float-element tooltip-left" data-tooltip="Termeni și Condiții">
+                <i class="fas fa-file-signature"></i>
+            </a>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

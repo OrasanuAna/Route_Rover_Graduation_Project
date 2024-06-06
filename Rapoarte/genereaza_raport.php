@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $this->Cell(0, 10, 'Acest raport a fost generat automat de către aplicația Route Rover.', 0, false, 'L', 0, '', 0, false, 'T', 'M');
                 
                 // Adaugă textul în footer în partea dreaptă
-                $this->Cell(0, 10, 'Aveți o întrebare? support@route-rover.ro', 0, false, 'R', 0, '', 0, false, 'T', 'M');
+                $this->Cell(0, 10, 'Aveți o întrebare? suport@route-rover.ro', 0, false, 'R', 0, '', 0, false, 'T', 'M');
             }
         }
         
