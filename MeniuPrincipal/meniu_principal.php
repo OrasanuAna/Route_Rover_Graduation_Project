@@ -109,7 +109,7 @@ $conn->close();
                 <div class="row">
                     <div class="col text-center">
                         <a href="/Sarcini/adauga_task.php" class="btn custom-btn">
-                            <i class="fas fa-plus-circle"></i> Adauga un task
+                            <i class="fas fa-plus-circle"></i> Adaugă un task
                         </a>
                     </div>
                 </div>

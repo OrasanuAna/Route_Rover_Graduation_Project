@@ -130,8 +130,8 @@ h1 {
     background-color: #ADD8E6; /* Setează culoarea de fundal */
     color: black; /* Setează culoarea textului */
     border: 1px solid black; /* Setează culoarea border-ului */
-    margin-top: -50px;
-    margin-left: 150px;
+    margin-top: -30px;
+    margin: 0 auto;
     white-space: nowrap; /* Asigură că textul nu se va întrerupe */
 }
 
