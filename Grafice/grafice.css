@@ -112,6 +112,6 @@ body {
 
 h1 {
     font-family: 'Playfair Display', sans-serif;
-    margin-top: 60px;
-    margin-bottom: 30px;
+    margin-bottom: 25px !important;
+    margin-top: 50px !important;
 }

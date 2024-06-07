@@ -57,6 +57,38 @@ while ($row = $contracteResult->fetch_assoc()) {
 }
 $data['contracte'] = ['labels' => $contracteLabels, 'data' => $contracteData];
 
+// Anul de fabricație al vehiculelor
+$anFabricatieResult = $conn->query("SELECT AnFabricatie, COUNT(*) AS numar FROM Vehicule GROUP BY AnFabricatie ORDER BY AnFabricatie");
+$anFabricatieLabels = [];
+$anFabricatieData = [];
+while ($row = $anFabricatieResult->fetch_assoc()) {
+    $anFabricatieLabels[] = $row['AnFabricatie'];
+    $anFabricatieData[] = $row['numar'];
+}
+$data['anFabricatie'] = ['labels' => $anFabricatieLabels, 'data' => $anFabricatieData];
+
+// Culoare vehicul
+$culoareVehiculResult = $conn->query("SELECT Culoare, COUNT(*) AS numar FROM Vehicule GROUP BY Culoare ORDER BY Culoare");
+$culoareVehiculLabels = [];
+$culoareVehiculData = [];
+while ($row = $culoareVehiculResult->fetch_assoc()) {
+    $culoareVehiculLabels[] = $row['Culoare'];
+    $culoareVehiculData[] = $row['numar'];
+}
+$data['culoareVehicul'] = ['labels' => $culoareVehiculLabels, 'data' => $culoareVehiculData];
+
+// Marca și model vehicul
+$marcaModelResult = $conn->query("SELECT MarcaModel, COUNT(*) AS numar FROM Vehicule GROUP BY MarcaModel ORDER BY MarcaModel");
+$marcaModelLabels = [];
+$marcaModelData = [];
+while ($row = $marcaModelResult->fetch_assoc()) {
+    $marcaModelLabels[] = $row['MarcaModel'];
+    $marcaModelData[] = $row['numar'];
+}
+$data['marcaModel'] = ['labels' => $marcaModelLabels, 'data' => $marcaModelData];
+
 // Return the data as JSON
 header('Content-Type: application/json');
 echo json_encode($data);
+
+?>

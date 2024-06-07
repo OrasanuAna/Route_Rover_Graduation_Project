@@ -5,20 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafice</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meniu Principal</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="/Grafice/grafice.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1900px;
+        }
+        .chart-container {
+            margin-bottom: 50px;
+        }
+        canvas {
+            max-width: 100% !important;
+            height: 400px !important;
+            margin: 0 auto;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    </style>
 </head>
 <body>
 
@@ -69,25 +80,38 @@
     </nav>
 
     <div class="container my-5">
-        <h2 class="text-center">Grafice</h2>
+        <h1 class="text-center mb-5">Grafice</h1>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 chart-container">
+                <h5 class="text-center">Numărul de șoferi angajați de-a lungul timpului</h5>
                 <canvas id="soferiAngajatiChart"></canvas>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 chart-container">
+                <h5 class="text-center">Distribuția tipurilor de vehicule în funcție de combustibil</h5>
                 <canvas id="tipuriVehiculeChart"></canvas>
             </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <canvas id="documenteIncarcateChart"></canvas>
+            <div class="col-md-6 chart-container">
+                <h5 class="text-center">Culoare vehicul</h5>
+                <canvas id="culoareVehiculChart"></canvas>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 chart-container">
+                <h5 class="text-center">An fabricație vehicul</h5>
+                <canvas id="anFabricatieVehiculChart"></canvas>
+            </div>
+            <div class="col-md-6 chart-container">
+                <h5 class="text-center">Statusul ITP și asigurarea pentru vehicule</h5>
                 <canvas id="statusITPAsigurareChart"></canvas>
             </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-12">
+            <div class="col-md-6 chart-container">
+                <h5 class="text-center">Marca și model vehicul</h5>
+                <canvas id="marcaModelVehiculChart"></canvas>
+            </div>
+            <div class="col-md-6 chart-container">
+                <h5 class="text-center">Numărul de documente încărcate lunar</h5>
+                <canvas id="documenteIncarcateChart"></canvas>
+            </div>
+            <div class="col-md-6 chart-container">
+                <h5 class="text-center">Durata contractelor</h5>
                 <canvas id="durataContracteChart"></canvas>
             </div>
         </div>
@@ -95,6 +119,7 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
         // Schimbă tema la clic pe iconiță
@@ -199,6 +224,8 @@
 
         // Functie pentru a crea graficele
         function createCharts(data) {
+            console.log(data);  // Adaugă acest log pentru a verifica datele preluate
+
             // Grafic numărul de șoferi angajați de-a lungul timpului
             new Chart(document.getElementById('soferiAngajatiChart'), {
                 type: 'line',
@@ -317,8 +344,85 @@
                     }
                 }
             });
+
+            // Grafic an fabricație vehicul
+            new Chart(document.getElementById('anFabricatieVehiculChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.anFabricatie.labels,
+                    datasets: [{
+                        label: 'Număr de vehicule',
+                        data: data.anFabricatie.data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { title: { display: true, text: 'An fabricație' } },
+                        y: { title: { display: true, text: 'Număr de vehicule' } }
+                    }
+                }
+            });
+
+            // Grafic culoare vehicul
+            new Chart(document.getElementById('culoareVehiculChart'), {
+                type: 'pie',
+                data: {
+                    labels: data.culoareVehicul.labels,
+                    datasets: [{
+                        label: 'Număr de vehicule',
+                        data: data.culoareVehicul.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+            // Grafic marca și model vehicul
+            new Chart(document.getElementById('marcaModelVehiculChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.marcaModel.labels,
+                    datasets: [{
+                        label: 'Număr de vehicule',
+                        data: data.marcaModel.data,
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { title: { display: true, text: 'Marca și Model' } },
+                        y: { title: { display: true, text: 'Număr de vehicule' } }
+                    }
+                }
+            });
         }
 
+    
         // Obține datele și creează graficele
         fetchChartData().done(createCharts);
     </script>
