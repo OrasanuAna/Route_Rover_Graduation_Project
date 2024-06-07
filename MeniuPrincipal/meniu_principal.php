@@ -91,6 +91,9 @@ $conn->close();
                 <li class="nav-item">
                     <a class="nav-link" href="/Rapoarte/genereaza_raport.php"><i class="fas fa-chart-bar"></i> Rapoarte</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Grafice/grafice.php"><i class="fas fa-chart-pie"></i> Grafice</a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -122,7 +125,7 @@ $conn->close();
                             <tr>
                                 <th scope="col">Sarcini Restante</th>
                                 <th scope="col">Sarcinile Zilei</th>
-                                <th scope="col" class="text-right">Sarcini Viitoare</th>
+                                <th scope="col" class="text-left">Sarcini Viitoare</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -147,7 +150,7 @@ $conn->close();
                                 </td>
                                 <td>
                                     <?php foreach ($taskuriViitoare as $task): ?>
-                                        <div class="mb-3 text-right">
+                                        <div class="mb-3 text-left">
                                             <?php echo htmlspecialchars($task['nume']); ?>
                                             <a href="/Sarcini/informatii_task.php?id=<?php echo $task['id']; ?>" class="edit-icon"><i class="fas fa-pencil-alt"></i></a>
                                             <a href="#" class="confirm-icon" data-taskid="<?php echo $task['id']; ?>"><i class="fas fa-check"></i></a>

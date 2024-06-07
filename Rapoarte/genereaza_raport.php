@@ -226,6 +226,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li class="nav-item active">
                     <a class="nav-link" href="/Rapoarte/genereaza_raport.php"><i class="fas fa-chart-bar"></i> Rapoarte</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Grafice/grafice.php"><i class="fas fa-chart-pie"></i> Grafice</a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
