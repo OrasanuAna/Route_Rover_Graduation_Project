@@ -108,7 +108,7 @@ $conn->close();
 
     <!-- Conținutul principal al paginii -->
     <div class="container">
-        <h1 class="text-center">Welcome to Route Rover, <?php echo htmlspecialchars($username); ?>!</h1>
+        <h1 class="text-center">Jurnalul de activitate al managerului <?php echo htmlspecialchars($username); ?></h1>
 
         <div class="container table-container">
             <div class="row">
