@@ -1,0 +1,28 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "*.php",
+        "use": "@vercel/php"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/",
+        "dest": "/Autentificare/autentificare.php"
+      },
+      {
+        "src": "/inregistrare",
+        "dest": "/Inregistrare/inregistrare.php"
+      },
+      {
+        "src": "/autentificare",
+        "dest": "/Autentificare/autentificare.php"
+      },
+      {
+        "src": "/meniu-principal",
+        "dest": "/MeniuPrincipal/meniu_principal.php"
+      }
+    ]
+  }
+  
