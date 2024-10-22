@@ -1,6 +1,9 @@
 
 # Route Rover - Licență
 
+### Documentația Licenței
+Pentru a consulta documentul complet al lucrării de licență, poți descărca PDF-ul [aici](https://github.com/OrasanuAna/Route_Rover_Licenta/blob/master/Licenta Orășanu Ana Maria.pdf).
+
 ### Descriere
 **Route Rover** este un proiect creat pentru licența mea la Facultatea de Informatică Managerială. Aplicația automatizează procesele și gestionează datele necesare unei companii de transport rutier, oferind soluții pentru monitorizarea șoferilor, vehiculelor, contractelor și documentelor.
 
