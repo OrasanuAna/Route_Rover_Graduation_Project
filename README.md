@@ -44,6 +44,3 @@ Pentru a consulta documentul complet al lucrării de licență, poți descărca 
 - Navighează prin meniuri pentru a gestiona șoferii, vehiculele și contractele.
 - Vizualizează statistici și date sub formă de grafice în secțiunea dedicată.
 
-
-### Contribuții
-Contribuțiile sunt binevenite! Dacă dorești să adaugi funcționalități sau să corectezi erori, te rog să faci un fork și să trimiți un pull request.
