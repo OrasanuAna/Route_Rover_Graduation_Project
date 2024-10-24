@@ -34,6 +34,7 @@ Pentru a consulta documentul complet al lucrării de licență, poți descărca 
    npm install
    ```
 4. Configurează conexiunea la baza de date în fișierul `.env`.
+   
 5. Rulează aplicația:
    ```bash
    npm start
