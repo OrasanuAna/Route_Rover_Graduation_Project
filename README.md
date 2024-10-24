@@ -1,47 +1,51 @@
 
-# Route Rover - Licență
+# Route Rover - Bachelor's Degree Project
 
-### Documentația Licenței
-Pentru a consulta documentul complet al lucrării de licență, poți descărca PDF-ul [aici](https://github.com/OrasanuAna/Route_Rover_Licenta/blob/master/Licenta%20Or%C4%83%C8%99anu%20Ana%20Maria.pdf).
+### Documentation
+To view the full documentation of my Bachelor's degree project, you can download the PDF [here](https://github.com/OrasanuAna/Route_Rover_Licenta/blob/master/Licenta%20Or%C4%83%C8%99anu%20Ana%20Maria.pdf).
 
-### Descriere
-**Route Rover** este un proiect creat pentru licența mea la Facultatea de Informatică Managerială. Aplicația automatizează procesele și gestionează datele necesare unei companii de transport rutier, oferind soluții pentru monitorizarea șoferilor, vehiculelor, contractelor și documentelor.
+### Preview
 
-### Funcționalități cheie:
-- Gestionarea șoferilor și a vehiculelor
-- Evidența contractelor și a documentelor relevante
-- Afișarea statisticilor în timp real prin grafice intuitive
-- Automatizarea proceselor administrative
-- Interfață simplă și ușor de utilizat
+![Route Rover Main Menu and Tasks](https://github.com/OrasanuAna/Route_Rover_Licenta/blob/master/Meniu%20Principal%20%2B%20Sarcini.jpg)
 
-### Tehnologii utilizate:
+
+### Overview
+**Route Rover** is the project I developed for my Bachelor's degree at the Faculty of Managerial Informatics. The application automates processes and manages the necessary data for a road transportation company, providing solutions for monitoring drivers, vehicles, contracts, and related documents.
+
+### Key Features:
+- Manage drivers and vehicles
+- Track contracts and relevant documents
+- Display real-time statistics with intuitive charts
+- Automate administrative processes
+- Simple and user-friendly interface
+
+### Technologies Used:
 - **Front-end:** HTML, CSS, JavaScript
 - **Back-end:** PHP
-- **Bază de date:** MySQL
-- **Alte tehnologii:** Chart.js (pentru grafice), Bootstrap (pentru stilizare)
+- **Database:** MySQL
+- **Other Technologies:** Chart.js (for charts), Bootstrap (for styling)
 
-### Instalare
-1. Clonează acest repository:
+### Installation
+1. Clone this repository:
    ```bash
    git clone https://github.com/OrasanuAna/Route_Rover_Licenta.git
    ```
-2. Accesează directorul proiectului:
+2. Navigate to the project directory:
    ```bash
    cd Route_Rover_Licenta
    ```
-3. Instalează dependențele necesare:
+3. Install the necessary dependencies:
    ```bash
    npm install
    ```
-4. Configurează conexiunea la baza de date în fișierul `.env`.
-   
-5. Rulează aplicația:
+4. Set up the database connection in the `.env` file.
+
+5. Run the application:
    ```bash
    npm start
    ```
 
-### Utilizare
-- Accesează interfața principală a aplicației la `http://localhost:3000`.
-- Navighează prin meniuri pentru a gestiona șoferii, vehiculele și contractele.
-- Vizualizează statistici și date sub formă de grafice în secțiunea dedicată.
-
+### Usage
+- Access the main interface of the application at `http://localhost:3000`.
+- Navigate through the menus to manage drivers, vehicles, and contracts.
+- View statistics and data in the form of charts in the dedicated section.
