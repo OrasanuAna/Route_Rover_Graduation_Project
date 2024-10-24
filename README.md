@@ -16,7 +16,7 @@ Pentru a consulta documentul complet al lucrării de licență, poți descărca 
 
 ### Tehnologii utilizate:
 - **Front-end:** HTML, CSS, JavaScript
-- **Back-end:** Node.js, Express.js
+- **Back-end:** PHP
 - **Bază de date:** MySQL
 - **Alte tehnologii:** Chart.js (pentru grafice), Bootstrap (pentru stilizare)
 
