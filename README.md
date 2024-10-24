@@ -10,7 +10,7 @@ To view the full documentation of my Bachelor's degree project, you can download
 
 
 ### Overview
-**Route Rover** is the project I developed for my Bachelor's degree at the Faculty of Managerial Informatics. The application automates processes and manages the necessary data for a road transportation company, providing solutions for monitoring drivers, vehicles, contracts, and related documents.
+**Route Rover** is the project I developed for my Bachelor's degree at the Faculty of Computer Science. The application automates processes and manages the necessary data for a road transportation company, providing solutions for monitoring drivers, vehicles, contracts, and related documents.
 
 ### Key Features:
 - Manage drivers and vehicles
