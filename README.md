@@ -8,6 +8,7 @@ To view the full documentation of my Bachelor's degree project, you can download
 
 ![Route Rover Main Menu and Tasks](https://github.com/OrasanuAna/Route_Rover_Licenta/blob/master/Meniu%20Principal%20%2B%20Sarcini.jpg)
 
+If you want to see more images related to the Route Rover project, you can find them [here](https://github.com/OrasanuAna/Route_Rover_Graduation_Project/tree/master/Pictures%20Route%20Rover).
 
 ### Overview
 **Route Rover** is the project I developed for my Bachelor's degree at the Faculty of Computer Science. The application automates processes and manages the necessary data for a road transportation company, providing solutions for monitoring drivers, vehicles, contracts, and related documents.
